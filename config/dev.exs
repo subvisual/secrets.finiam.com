@@ -1,10 +1,10 @@
 use Mix.Config
 
 # Configure your database
-config :phoenix_starter, PhoenixStarter.Repo,
+config :secrets, PhoenixStarter.Repo,
   username: "postgres",
   password: "postgres",
-  database: "phoenix_starter_dev",
+  database: "secrets_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
@@ -15,18 +15,18 @@ config :phoenix_starter, PhoenixStarter.Repo,
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
-config :phoenix_starter, PhoenixStarterWeb.Endpoint,
+config :secrets, PhoenixStarterWeb.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
   check_origin: false
 
-config :phoenix_starter, PhoenixStarterWeb.Endpoint,
+config :secrets, PhoenixStarterWeb.Endpoint,
   live_reload: [
     patterns: [
       ~r"priv/gettext/.*(po)$",
-      ~r"lib/phoenix_starter_web/(live|views)/.*(ex)$",
-      ~r"lib/phoenix_starter_web/templates/.*(eex)$"
+      ~r"lib/secrets_web/(live|views)/.*(ex)$",
+      ~r"lib/secrets_web/templates/.*(eex)$"
     ]
   ]
 
