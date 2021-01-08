@@ -9,8 +9,12 @@
     "lint-styles": "stylelint './**/*.css'"
   },
   "dependencies": {
-    "@loadable/component": "^5.14.1",
+    "@chakra-ui/react": "^1.1.2",
+    "@emotion/react": "^11.1.4",
+    "@emotion/styled": "^11.0.0",
+    "framer-motion": "^3.2.0",
     "normalize.css": "^8.0.1",
+    "preact": "^10.5.9",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -22,7 +26,6 @@
     "@snowpack/plugin-react-refresh": "^2.3.9",
     "@snowpack/plugin-typescript": "^1.1.1",
     "@snowpack/plugin-webpack": "^2.2.0",
-    "@types/loadable__component": "^5.13.1",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "autoprefixer": "^10.1.0",
