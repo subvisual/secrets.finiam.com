@@ -7,11 +7,11 @@
 # General application configuration
 use Mix.Config
 
-config :phoenix_starter,
+config :secrets,
   ecto_repos: [PhoenixStarter.Repo]
 
 # Configures the endpoint
-config :phoenix_starter, PhoenixStarterWeb.Endpoint,
+config :secrets, PhoenixStarterWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base:
     "Kdx7FKHM50+zw5MDplDK5tft3vfaVopA/lnX904SNtNgqcn+Ti3v9G7hk+GUH4E+",
