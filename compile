@@ -1,3 +1,0 @@
-cd $phoenix_dir
-bin/build
-mix phx.digest
