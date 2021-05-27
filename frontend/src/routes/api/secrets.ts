@@ -1,12 +1,12 @@
 import Redis from 'ioredis';
 import type { RequestHandler } from '@sveltejs/kit';
-import { randomUUID } from 'crypto';
+import { v4 as uuid } from 'uuid';
 
 const redis = new Redis(process.env['REDIS_URL']);
 
 export const post: RequestHandler = async ({ body }) => {
   const { secret } = JSON.parse(body as string);
-  const room = randomUUID();
+  const room = uuid();
 
   await redis.set(room, secret);
 
