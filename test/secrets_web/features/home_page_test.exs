@@ -6,7 +6,6 @@ defmodule Secrets.Features.HomePageTest do
   test "home page displays hello world", %{session: session} do
     session
     |> visit("/")
-    |> assert_has(css("p", text: "Hello World!"))
-    |> assert_has(css("p", text: "API Result: example"))
+    |> assert_has(css("h1", text: "Go ahead, share your secrets :)"))
   end
 end

@@ -6,8 +6,8 @@ test -f .envrc && . "./.envrc"
 
 pp_info "build" "Building the frontend assets..."
 
-rm -rf frontend/build priv/static
+rm -rf frontend-svelte/build priv/static
 yarn build
 mkdir -p priv/static
-cp -R frontend/build/* priv/static
-rm -rf frontend/build
+cp -R frontend-svelte/build/* priv/static
+rm -rf frontend-svelte/build

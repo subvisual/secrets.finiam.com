@@ -43,3 +43,5 @@ npm-debug.log
 erl_crash.dump
 
 frontend/build/
+frontend-svelte/build/
+frontend-svelte/.svelte-kit/

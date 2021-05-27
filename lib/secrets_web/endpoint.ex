@@ -21,8 +21,7 @@ defmodule SecretsWeb.Endpoint do
   plug Plug.Static,
     at: "/",
     from: :secrets,
-    gzip: true,
-    only: ~w(css js assets favicon.ico robots.txt)
+    gzip: true
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
