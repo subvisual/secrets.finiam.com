@@ -1,4 +1,4 @@
-defmodule PhoenixStarterWeb.Endpoint do
+defmodule SecretsWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :secrets
 
   # The session will be stored in the cookie and signed,
@@ -10,7 +10,7 @@ defmodule PhoenixStarterWeb.Endpoint do
     signing_salt: "jppigE3N"
   ]
 
-  socket "/socket", PhoenixStarterWeb.UserSocket,
+  socket "/socket", SecretsWeb.UserSocket,
     websocket: true,
     longpoll: false
 
@@ -43,5 +43,6 @@ defmodule PhoenixStarterWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
-  plug PhoenixStarterWeb.Router
+  plug CORSPlug, origin: ["http://localhost:8080"]
+  plug SecretsWeb.Router
 end

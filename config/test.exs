@@ -1,13 +1,6 @@
 use Mix.Config
 
-config :secrets, PhoenixStarter.Repo,
-  username: "postgres",
-  password: "postgres",
-  database: "secrets_test",
-  hostname: "localhost",
-  pool: Ecto.Adapters.SQL.Sandbox
-
-config :secrets, PhoenixStarterWeb.Endpoint,
+config :secrets, SecretsWeb.Endpoint,
   http: [port: 4002],
   server: true
 

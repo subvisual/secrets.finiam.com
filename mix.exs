@@ -1,4 +1,4 @@
-defmodule PhoenixStarter.MixProject do
+defmodule Secrets.MixProject do
   use Mix.Project
 
   @env Mix.env()
@@ -18,7 +18,7 @@ defmodule PhoenixStarter.MixProject do
 
   def application do
     [
-      mod: {PhoenixStarter.Application, []},
+      mod: {Secrets.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end
@@ -29,11 +29,8 @@ defmodule PhoenixStarter.MixProject do
   defp deps do
     [
       {:cors_plug, "~> 2.0"},
-      {:phoenix, "~> 1.5.6"},
+      {:phoenix, "~> 1.5.9"},
       {:phoenix_pubsub, "~> 2.0.0"},
-      {:phoenix_ecto, "~> 4.0"},
-      {:ecto_sql, "~> 3.5"},
-      {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 2.11"},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
@@ -55,12 +52,8 @@ defmodule PhoenixStarter.MixProject do
   defp aliases do
     [
       "assets.build": &compile_assets/1,
-      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
-      "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: [
         "assets.build",
-        "ecto.create --quiet",
-        "ecto.migrate",
         "test"
       ]
     ]

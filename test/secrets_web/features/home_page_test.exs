@@ -1,5 +1,5 @@
-defmodule PhoenixStarter.Features.HomePageTest do
-  use PhoenixStarter.FeatureCase, async: true
+defmodule Secrets.Features.HomePageTest do
+  use Secrets.FeatureCase, async: true
 
   import Wallaby.Query
 

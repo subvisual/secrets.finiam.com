@@ -1,3 +1,3 @@
-defmodule PhoenixStarterWeb.PageViewTest do
-  use PhoenixStarterWeb.ConnCase, async: true
+defmodule SecretsWeb.PageViewTest do
+  use SecretsWeb.ConnCase, async: true
 end

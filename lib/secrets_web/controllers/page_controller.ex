@@ -1,5 +1,5 @@
-defmodule PhoenixStarterWeb.PageController do
-  use PhoenixStarterWeb, :controller
+defmodule SecretsWeb.PageController do
+  use SecretsWeb, :controller
 
   def index(conn, _params) do
     conn

@@ -1,1 +1,2 @@
-export ENV_VAR_EXAMPLE=env_value_example
+export SNOWPACK_PUBLIC_API_URL="http://localhost:4000"
+export SNOWPACK_PUBLIC_SOCKET_ADDRESS="ws://localhost:4000"

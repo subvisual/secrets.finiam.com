@@ -1,8 +1,10 @@
 module.exports = {
   mount: {
     src: "/assets",
-    static: "/",
+    static: { url: "/", static: true },
   },
+
+  routes: [{ match: "routes", src: ".*", dest: "/index.html" }],
 
   plugins: [
     "@snowpack/plugin-postcss",

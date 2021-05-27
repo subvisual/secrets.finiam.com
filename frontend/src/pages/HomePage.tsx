@@ -7,9 +7,13 @@ import {
   Textarea,
   VStack,
 } from "@chakra-ui/react";
+import useAuth from "root/hooks/useAuth";
+
+import getExample from "../api/example";
 
 export default function Form() {
   const [content, setContent] = useState<string>();
+  const { connectSocket } = useAuth();
 
   const handleContentChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setContent(event.target.value);
@@ -18,7 +22,7 @@ export default function Form() {
   const handleSubmit = (event: FormEvent<HTMLDivElement>) => {
     event.preventDefault();
 
-    console.log(content);
+    connectSocket();
   };
 
   return (

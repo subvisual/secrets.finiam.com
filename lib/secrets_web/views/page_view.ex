@@ -1,3 +1,3 @@
-defmodule PhoenixStarterWeb.PageView do
-  use PhoenixStarterWeb, :view
+defmodule SecretsWeb.PageView do
+  use SecretsWeb, :view
 end

@@ -1,3 +1,3 @@
-defmodule PhoenixStarterWeb.LayoutView do
-  use PhoenixStarterWeb, :view
+defmodule SecretsWeb.LayoutView do
+  use SecretsWeb, :view
 end
