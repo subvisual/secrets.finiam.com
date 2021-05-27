@@ -15,7 +15,7 @@ export const post: RequestHandler = async ({ body }) => {
 
 const REDIS_SCRIPT = `
   local secret = redis.call('get', KEYS[1])
-  --redis.call('del', KEYS[1])
+  redis.call('del', KEYS[1])
 
   return secret
 `;
