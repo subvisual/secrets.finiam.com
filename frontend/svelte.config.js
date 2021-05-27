@@ -1,5 +1,6 @@
 import preprocess from 'svelte-preprocess';
 import adapter from '@sveltejs/adapter-netlify';
+import builtins from 'rollup-plugin-node-builtins';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -9,7 +10,10 @@ const config = {
 
   kit: {
     target: '#svelte',
-    adapter: adapter()
+    adapter: adapter(),
+    vite: {
+      plugins: [builtins({ crypto: true })]
+    }
   }
 };
 

@@ -24,8 +24,8 @@ const deriveKey = (passwordKey: CryptoKey, salt: ArrayBuffer, keyUsage: KeyUsage
 const bufferToBase64 = (buff: ArrayBuffer) => btoa(String.fromCharCode.apply(null, buff));
 const base64ToBuffer = (b64: string) => Uint8Array.from(atob(b64), (c) => c.charCodeAt(null));
 
-export function generatePassphrase(): string {
-  return Array(32)
+export function generateRandomChars(number: number): string {
+  return Array(number)
     .fill('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz')
     .map(
       (char) =>
@@ -36,6 +36,10 @@ export function generatePassphrase(): string {
         ]
     )
     .join('');
+}
+
+export function generatePassphrase(): string {
+  return generateRandomChars(32);
 }
 
 export async function encryptData(plainText: string, passphrase: string): Promise<string> {
