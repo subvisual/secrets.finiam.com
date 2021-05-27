@@ -1,11 +1,8 @@
 <script context="module" lang="ts">
   import type { Load } from '@sveltejs/kit';
 
-  export const load: Load = async ({ page, fetch }) => {
-    const response = await fetch(`/api/secrets?id=${page.params.room}`, { method: 'GET' });
-    const body = await response.json();
-
-    return { props: { secret: body.secret } };
+  export const load: Load = async ({ page }) => {
+    return { props: { room: page.params.room } };
   };
 </script>
 
@@ -13,10 +10,13 @@
   import { decryptData } from '$lib/crypto';
   import { onMount } from 'svelte';
 
-  export let secret: string;
+  export let room: string;
+  let secret: string;
   let revealedSecret: string;
 
   onMount(async () => {
+    const response = await fetch(`/api/secrets?id=${room}`, { method: 'GET' });
+    secret = (await response.json()).secret;
     const encryptionKey = location.hash.substring(1);
     revealedSecret = await decryptData(secret, encryptionKey);
   });
