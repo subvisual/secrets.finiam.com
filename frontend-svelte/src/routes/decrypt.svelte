@@ -1,25 +1,25 @@
 <script lang="ts">
-	import { decryptData } from '$lib/crypto';
+  import { decryptData } from '$lib/crypto';
 
-	let encrypted;
-	let key;
-	let result;
+  let encrypted;
+  let key;
+  let result;
 
-	async function handleClick(event) {
-		event.preventDefault();
+  async function handleClick(event) {
+    event.preventDefault();
 
-		result = await decryptData(encrypted, key);
-	}
+    result = await decryptData(encrypted, key);
+  }
 </script>
 
 <div>
-	<label>Encrypted</label>
-	<input bind:value={encrypted} />
+  <label>Encrypted</label>
+  <input bind:value={encrypted} />
 
-	<label>Key</label>
-	<input bind:value={key} />
+  <label>Key</label>
+  <input bind:value={key} />
 
-	<button on:click={handleClick}>Decrypt</button>
+  <button on:click={handleClick}>Decrypt</button>
 
-	{result}
+  {result}
 </div>
