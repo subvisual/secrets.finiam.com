@@ -7,16 +7,13 @@
 # General application configuration
 use Mix.Config
 
-config :secrets,
-  ecto_repos: [PhoenixStarter.Repo]
-
 # Configures the endpoint
-config :secrets, PhoenixStarterWeb.Endpoint,
+config :secrets, SecretsWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base:
     "Kdx7FKHM50+zw5MDplDK5tft3vfaVopA/lnX904SNtNgqcn+Ti3v9G7hk+GUH4E+",
-  render_errors: [view: PhoenixStarterWeb.ErrorView, accepts: ~w(html json)],
-  pubsub_server: PhoenixStarter.PubSub,
+  render_errors: [view: SecretsWeb.ErrorView, accepts: ~w(html json)],
+  pubsub_server: Secrets.PubSub,
   live_view: [signing_salt: "E6/tASpm"]
 
 # Configures Elixir's Logger

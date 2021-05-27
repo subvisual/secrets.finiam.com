@@ -1,6 +1,6 @@
 [
-  import_deps: [:ecto, :phoenix],
-  inputs: ["*.{ex,exs}", "priv/*/seeds.exs", "{config,lib,test}/**/*.{ex,exs}"],
+  import_deps: [:phoenix],
+  inputs: ["*.{ex,exs}", "{config,lib,test}/**/*.{ex,exs}"],
   subdirectories: ["priv/*/migrations"],
   line_length: 80,
   locals_without_parens: [
@@ -10,18 +10,6 @@
     send: :*,
     spawn: :*,
     import_if_available: :*,
-
-    # ecto
-    create: :*,
-    drop: :*,
-    remove: :*,
-    field: :*,
-    schema: :*,
-    add: :*,
-    rename: :*,
-    modify: :*,
-    execute: :*,
-    from: :*,
 
     # vex
     validates: :*,

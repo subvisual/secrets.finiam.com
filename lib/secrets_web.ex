@@ -1,12 +1,12 @@
-defmodule PhoenixStarterWeb do
+defmodule SecretsWeb do
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, views, channels and so on.
 
   This can be used in your application as:
 
-      use PhoenixStarterWeb, :controller
-      use PhoenixStarterWeb, :view
+      use SecretsWeb, :controller
+      use SecretsWeb, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -19,11 +19,11 @@ defmodule PhoenixStarterWeb do
 
   def controller do
     quote do
-      use Phoenix.Controller, namespace: PhoenixStarterWeb
+      use Phoenix.Controller, namespace: SecretsWeb
 
       import Plug.Conn
-      import PhoenixStarterWeb.Gettext
-      alias PhoenixStarterWeb.Router.Helpers, as: Routes
+      import SecretsWeb.Gettext
+      alias SecretsWeb.Router.Helpers, as: Routes
     end
   end
 
@@ -31,7 +31,7 @@ defmodule PhoenixStarterWeb do
     quote do
       use Phoenix.View,
         root: "lib/secrets_web/templates",
-        namespace: PhoenixStarterWeb
+        namespace: SecretsWeb
 
       # Import convenience functions from controllers
       import Phoenix.Controller,
@@ -40,9 +40,9 @@ defmodule PhoenixStarterWeb do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
-      import PhoenixStarterWeb.ErrorHelpers
-      import PhoenixStarterWeb.Gettext
-      alias PhoenixStarterWeb.Router.Helpers, as: Routes
+      import SecretsWeb.ErrorHelpers
+      import SecretsWeb.Gettext
+      alias SecretsWeb.Router.Helpers, as: Routes
     end
   end
 
@@ -57,7 +57,7 @@ defmodule PhoenixStarterWeb do
   def channel do
     quote do
       use Phoenix.Channel
-      import PhoenixStarterWeb.Gettext
+      import SecretsWeb.Gettext
     end
   end
 

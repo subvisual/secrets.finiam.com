@@ -1,4 +1,4 @@
-defmodule PhoenixStarterWeb.ErrorHelpers do
+defmodule SecretsWeb.ErrorHelpers do
   @moduledoc """
   Conveniences for translating and building error messages.
   """
@@ -40,7 +40,7 @@ defmodule PhoenixStarterWeb.ErrorHelpers do
     # set by Ecto and indicates we should also apply plural rules.
     if count = opts[:count] do
       Gettext.dngettext(
-        PhoenixStarterWeb.Gettext,
+        SecretsWeb.Gettext,
         "errors",
         msg,
         msg,
@@ -48,7 +48,7 @@ defmodule PhoenixStarterWeb.ErrorHelpers do
         opts
       )
     else
-      Gettext.dgettext(PhoenixStarterWeb.Gettext, "errors", msg, opts)
+      Gettext.dgettext(SecretsWeb.Gettext, "errors", msg, opts)
     end
   end
 end

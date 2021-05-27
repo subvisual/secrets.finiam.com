@@ -17,7 +17,6 @@ window.addEventListener("DOMContentLoaded", () => {
   );
 });
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-if (import.meta.env.MODE === "development") {
-  redaxios.defaults.baseURL = "http://localhost:4000";
-}
+redaxios.defaults.baseURL = import.meta.env.SNOWPACK_PUBLIC_API_URL;

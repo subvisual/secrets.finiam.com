@@ -1,5 +1,5 @@
-defmodule PhoenixStarterWeb.Router do
-  use PhoenixStarterWeb, :router
+defmodule SecretsWeb.Router do
+  use SecretsWeb, :router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -15,13 +15,13 @@ defmodule PhoenixStarterWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", PhoenixStarterWeb do
+  scope "/api", SecretsWeb do
     pipe_through :api
 
     get "/example", ExampleController, :index
   end
 
-  scope "/", PhoenixStarterWeb do
+  scope "/", SecretsWeb do
     pipe_through :browser
 
     get "/*path", PageController, :index
