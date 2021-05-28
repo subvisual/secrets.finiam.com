@@ -1,0 +1,7 @@
+[build]
+  ignore = "/bin/false"
+  command = "cd frontend && npm run build"
+  publish = "frontend/build/"
+  functions = "frontend/functions/"
+[functions]
+  node_bundler = "esbuild"
