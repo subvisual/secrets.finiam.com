@@ -8,7 +8,7 @@ function buildApiUrl() {
 
   const prNumber = process.env['REVIEW_ID'];
 
-  if (prNumber) return `https://finiam-secrets-${prNumber}.herokuapp.com`;
+  if (prNumber) return `https://finiam-secrets-pr-${prNumber}.herokuapp.com`;
 
   return `https://finiam-secrets.herokuapp.com`;
 }

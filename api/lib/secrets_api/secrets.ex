@@ -11,8 +11,10 @@ defmodule SecretsApi.Secrets do
   def store_secret(secret) do
     room_id = generate_room_id()
 
-    case Redix.command(["SET", room_id, secret]) do
-      {:ok, _} -> {:ok, room_id}
+    with {:ok, _} <- Redix.command(["SET", room_id, secret]),
+         {:ok, _} <- Redix.command(["EXPIRE", room_id, 3600]) do
+      {:ok, room_id}
+    else
       _ -> {:error, :redis_error}
     end
   end

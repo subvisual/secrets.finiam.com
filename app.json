@@ -1,0 +1,18 @@
+{
+  "addons": [
+    {
+      "plan": "heroku-redis"
+    }
+  ],
+  "buildpacks": [
+    { "url": "https://github.com/timanovsky/subdir-heroku-buildpack" },
+    {
+      "url": "https://github.com/HashNuke/heroku-buildpack-elixir.git"
+    }
+  ],
+  "env": {
+    "SECRET_KEY_BASE": {
+      "generator": "secret"
+    }
+  }
+}

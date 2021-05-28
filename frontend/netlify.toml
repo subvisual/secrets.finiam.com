@@ -1,4 +1,5 @@
 [build]
+  ignore = "/bin/false"
   command = "yarn build"
   publish = "build/"
   functions = "functions/"
