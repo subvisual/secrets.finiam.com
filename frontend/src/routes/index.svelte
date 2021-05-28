@@ -4,6 +4,7 @@
   let textToEncrypt: string;
   let encryptedText: string;
   let encryptionKey: string;
+  let sharingUrl: string;
   let room: string;
 
   async function handleClick(event) {
@@ -18,6 +19,7 @@
     });
 
     room = (await response.json()).room;
+    sharingUrl = `${location.protocol}//${location.host}/${room}#${encryptionKey}`;
   }
 </script>
 
@@ -34,7 +36,7 @@
 
   <div class="result">
     {#if room}
-      <div>Your url: <a href={`/${room}#${encryptionKey}`}>{`/${room}#${encryptionKey}`}</a></div>
+      <div>Your url: <a href={sharingUrl}>{sharingUrl}</a></div>
     {/if}
   </div>
 </main>
