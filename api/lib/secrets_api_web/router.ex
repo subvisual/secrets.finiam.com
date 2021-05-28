@@ -22,15 +22,15 @@ defmodule SecretsApiWeb.Router do
     options "/*path", SecretsController, :options
   end
 
-  if Mix.env() in [:dev, :test] do
-    scope "/" do
-      pipe_through [:fetch_session, :protect_from_forgery]
-      live_dashboard "/dashboard", metrics: SecretsApiWeb.Telemetry
-    end
-  else
-    scope "/" do
-      pipe_through [:fetch_session, :protect_from_forgery, :auth]
-      live_dashboard "/dashboard", metrics: SecretsApiWeb.Telemetry
-    end
+  scope "/" do
+    pipelines =
+      if Mix.env() in [:dev, :test] do
+        [:fetch_session, :protect_from_forgery]
+      else
+        [:fetch_session, :protect_from_forgery, :auth]
+      end
+
+    pipe_through pipelines
+    live_dashboard "/dashboard", metrics: SecretsApiWeb.Telemetry
   end
 end
