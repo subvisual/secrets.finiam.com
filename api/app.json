@@ -1,0 +1,12 @@
+{
+  "addons": [
+    {
+      "plan": "heroku-redis"
+    }
+  ],
+  "env": {
+    "SECRET_KEY_BASE": {
+      "generator": "secret"
+    }
+  }
+}
