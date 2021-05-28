@@ -1,7 +1,7 @@
 [build]
   ignore = "/bin/false"
   command = "yarn build"
-  publish = "frontend/build/"
-  functions = "frontend/functions/"
+  publish = "build/"
+  functions = "functions/"
 [functions]
   node_bundler = "esbuild"
