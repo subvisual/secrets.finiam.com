@@ -4,7 +4,10 @@ defmodule SecretsApi.Redix do
   def child_spec(_args) do
     children =
       for index <- 0..(@pool_size - 1) do
-        Supervisor.child_spec({Redix, name: :"redix_#{index}"}, id: {Redix, index})
+        Supervisor.child_spec(
+          {Redix, {Application.fetch_env!(:secrets_api, :redis_url), [name: :"redix_#{index}"]}},
+          id: {Redix, index}
+        )
       end
 
     %{
@@ -19,6 +22,6 @@ defmodule SecretsApi.Redix do
   end
 
   defp random_index() do
-    Enum.random(0..@pool_size - 1)
+    Enum.random(0..(@pool_size - 1))
   end
 end
