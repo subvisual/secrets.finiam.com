@@ -11,8 +11,8 @@ defmodule SecretsApiWeb.SecretsController do
     end
   end
 
-  def show(conn, %{"id" => id}) do
-    with {:ok, secret} <- Secrets.retrieve_and_delete_secret(id) do
+  def show(conn, %{"id" => room_id}) do
+    with {:ok, secret} <- Secrets.retrieve_and_delete_secret(room_id) do
       json(conn, %{secret: secret})
     end
   end
