@@ -1,5 +1,7 @@
 <script lang="ts">
+  // @hmr:keep-all
   import { createSecret } from '$lib/api';
+  import copyToClipboard from '$lib/copyToClipboard';
 
   import { encryptData, generatePassphrase } from '$lib/crypto';
 
@@ -7,9 +9,11 @@
   let encryptedText: string;
   let encryptionKey: string;
   let sharingUrl: string;
+  let submitting: boolean;
 
   async function handleClick(event) {
     event.preventDefault();
+    submitting = true;
 
     encryptionKey = generatePassphrase();
     encryptedText = await encryptData(textToEncrypt, encryptionKey);
@@ -17,62 +21,56 @@
     const room = await createSecret(encryptedText);
 
     sharingUrl = `${location.protocol}//${location.host}/${room}#${encryptionKey}`;
+    submitting = false;
+  }
+
+  async function handleReset() {
+    textToEncrypt = '';
+    encryptedText = '';
+    encryptionKey = '';
+    sharingUrl = '';
+    submitting = false;
+  }
+
+  function handleCopyClick() {
+    copyToClipboard(sharingUrl);
   }
 </script>
 
-<main>
-  <h1>Go ahead, share your secrets :)</h1>
+<main class="max-w-2xl mx-auto pt-24 pb-6 flex flex-col items-center">
+  <h1 class="font-bold text-xl mb-8">Go ahead, share your secrets :)</h1>
 
-  <form>
-    <textarea name="secret" bind:value={textToEncrypt} />
+  {#if sharingUrl && !submitting}
+    <div class="flex flex-row items-center px-4 space-x-4">
+      <button class="p-2 rounded-md bg-gray-200 mt-4" type="button" on:click={handleCopyClick}>
+        Copy url to clipboard
+      </button>
 
-    <div class="submit">
-      <button on:click={handleClick}>Submit</button>
+      <button class="p-2 rounded-md bg-gray-200 mt-4" on:click={handleReset}>
+        Reset and try again
+      </button>
     </div>
-  </form>
+  {:else}
+    <form class="flex flex-col items-center w-full">
+      <textarea
+        class="border-2 border-gray-300 rounded-md p-4 w-1/2"
+        name="secret"
+        bind:value={textToEncrypt}
+      />
 
-  <div class="result">
-    {#if sharingUrl}
-      <div>Your url: <a href={sharingUrl}>{sharingUrl}</a></div>
-    {/if}
-  </div>
+      <div class="mt-4">
+        {#if submitting}
+          <div>Encrypting data...</div>
+        {:else}
+          <button
+            class="p-2 rounded-md bg-gray-200"
+            on:click={handleClick}
+            disabled={!textToEncrypt}
+          >
+            Submit
+          </button>
+        {/if}
+      </div>
+    </form>
+  {/if}
 </main>
-
-<style>
-  main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    padding: 4rem;
-    margin: 0 auto;
-  }
-
-  form {
-    display: flex;
-    flex-direction: column;
-  }
-
-  textarea {
-    margin-top: 4rem;
-
-    width: 30rem;
-    height: 30rem;
-  }
-
-  .submit {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  button {
-    margin-top: 1rem;
-    padding: 0.25rem;
-  }
-
-  .result {
-    display: flex;
-    flex-direction: column;
-  }
-</style>
