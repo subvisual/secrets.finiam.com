@@ -1,6 +1,6 @@
 [build]
   ignore = "/bin/false"
-  command = "cd frontend && npm run build"
+  command = "yarn build"
   publish = "frontend/build/"
   functions = "frontend/functions/"
 [functions]
