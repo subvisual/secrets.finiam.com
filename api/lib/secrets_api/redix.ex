@@ -1,4 +1,8 @@
 defmodule SecretsApi.Redix do
+  @moduledoc """
+  This module sets up the Redix connection pool
+  """
+
   @pool_size 5
 
   def child_spec(_args) do
@@ -21,7 +25,7 @@ defmodule SecretsApi.Redix do
     Redix.command(:"redix_#{random_index()}", command)
   end
 
-  defp random_index() do
+  defp random_index do
     Enum.random(0..(@pool_size - 1))
   end
 end

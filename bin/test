@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+set -e
+
+. "./bin/functions"
+test -f .envrc && . "./.envrc"
+
+(cd api;
+pp_info "test" "running elixir tests"
+mix test
+
+pp_success "test" "tests passed!"
+)

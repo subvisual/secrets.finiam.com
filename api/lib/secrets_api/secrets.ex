@@ -1,14 +1,13 @@
 defmodule SecretsApi.Secrets do
-  alias SecretsApi.Redix
-
-  @retrieve_lua """
-    local secret = redis.call('get', KEYS[1])
-    redis.call('del', KEYS[1])
-
-    return secret
+  @moduledoc """
+  This module contains basic operations to safely
+  store and retrieve secrets.
   """
 
-  @spec store_secret(any) :: {:error, charlist()} | {:ok, binary}
+  alias SecretsApi.Redix
+
+  @spec store_secret(any) ::
+          {:error, charlist()} | {:ok, binary}
   def store_secret(secret) do
     room_id = generate_room_id()
 
@@ -18,8 +17,18 @@ defmodule SecretsApi.Secrets do
     end
   end
 
+  @retrieve_lua_script """
+    local secret = redis.call('get', KEYS[1])
+    redis.call('del', KEYS[1])
+
+    return secret
+  """
+
+  @spec retrieve_and_delete_secret(any) ::
+          {:error, :not_found | :redis_error}
+          | {:ok, binary}
   def retrieve_and_delete_secret(room_id) do
-    case Redix.command(["EVAL", @retrieve_lua, 1, room_id]) do
+    case Redix.command(["EVAL", @retrieve_lua_script, 1, room_id]) do
       {:ok, nil} ->
         {:error, :not_found}
 

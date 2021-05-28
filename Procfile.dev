@@ -1,0 +1,2 @@
+frontend: (cd frontend; yarn dev)
+backend: (cd api; mix phx.server)

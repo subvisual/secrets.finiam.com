@@ -10,28 +10,12 @@
 
 <script lang="ts">
   import { decryptData } from '$lib/crypto';
+  import { getRoomSecret } from '$lib/api';
 
   export let room: string;
-  let secret: string;
-
-  async function getRoomSecret(): Promise<string> {
-    let response: Response;
-
-    try {
-      response = await fetch(`/api/secrets?id=${room}`, { method: 'GET' });
-      secret = (await response.json()).secret;
-    } catch (_) {
-      throw 'Something exploded!';
-    }
-
-    if (response.status === 404) throw 'No such secret!';
-    else if (response.status !== 200) throw 'Something exploded!';
-
-    return secret;
-  }
 
   async function revealSecret() {
-    const secret = await getRoomSecret();
+    const secret = await getRoomSecret(room);
     const encryptionKey = location.hash.substring(1);
 
     try {
