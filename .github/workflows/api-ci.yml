@@ -52,3 +52,5 @@ jobs:
 
     - name: Run Tests
       run: mix test
+      env:
+        REDIS_URL: redis://localhost:6379
