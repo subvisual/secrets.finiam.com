@@ -1,11 +1,12 @@
 <script lang="ts">
+  import { createSecret } from '$lib/api';
+
   import { encryptData, generatePassphrase } from '$lib/crypto';
 
   let textToEncrypt: string;
   let encryptedText: string;
   let encryptionKey: string;
   let sharingUrl: string;
-  let room: string;
 
   async function handleClick(event) {
     event.preventDefault();
@@ -13,12 +14,8 @@
     encryptionKey = generatePassphrase();
     encryptedText = await encryptData(textToEncrypt, encryptionKey);
 
-    const response = await fetch('/api/secrets', {
-      method: 'POST',
-      body: JSON.stringify({ secret: encryptedText })
-    });
+    const room = await createSecret(encryptedText);
 
-    room = (await response.json()).room;
     sharingUrl = `${location.protocol}//${location.host}/${room}#${encryptionKey}`;
   }
 </script>
@@ -35,7 +32,7 @@
   </form>
 
   <div class="result">
-    {#if room}
+    {#if sharingUrl}
       <div>Your url: <a href={sharingUrl}>{sharingUrl}</a></div>
     {/if}
   </div>

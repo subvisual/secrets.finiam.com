@@ -1,0 +1,21 @@
+#!/usr/bin/env sh
+
+set -e
+
+. "./bin/functions"
+test -f .envrc && . "./.envrc"
+
+(cd api;
+pp_info "lint" "running the elixir formatter..."
+mix format --check-formatted --dot-formatter .formatter.exs
+
+pp_info "lint" "running elixir credo..."
+mix credo --strict
+)
+
+(cd frontend;
+pp_info "lint" "running the javascript linter..."
+yarn lint
+)
+
+pp_success "lint" "no problems found!"

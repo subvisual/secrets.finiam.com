@@ -3,12 +3,15 @@ defmodule SecretsApiWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug CORSPlug
   end
 
-  scope "/", SecretsApiWeb do
+  scope "/api", SecretsApiWeb do
     pipe_through :api
 
     resources "/secrets", SecretsController, only: [:show, :create]
+
+    options "/*path", SecretsController, :options
   end
 
   # Enables LiveDashboard only for development

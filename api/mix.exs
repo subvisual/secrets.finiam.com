@@ -1,6 +1,8 @@
 defmodule SecretsApi.MixProject do
   use Mix.Project
 
+  @env Mix.env()
+
   def project do
     [
       app: :secrets_api,
@@ -14,9 +16,6 @@ defmodule SecretsApi.MixProject do
     ]
   end
 
-  # Configuration for the OTP application.
-  #
-  # Type `mix help compile.app` for more information.
   def application do
     [
       mod: {SecretsApi.Application, []},
@@ -24,15 +23,12 @@ defmodule SecretsApi.MixProject do
     ]
   end
 
-  # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "test/support"]
   defp elixirc_paths(_), do: ["lib"]
 
-  # Specifies your project dependencies.
-  #
-  # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:cors_plug, "~> 2.0"},
       {:phoenix, "~> 1.5.9"},
       {:phoenix_live_dashboard, "~> 0.4"},
       {:telemetry_metrics, "~> 0.4"},
@@ -40,15 +36,19 @@ defmodule SecretsApi.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:redix, "~> 1.1.2"}
+      | deps(@env)
     ]
   end
 
-  # Aliases are shortcuts or tasks specific to the current project.
-  # For example, to install project dependencies and perform other setup tasks, run:
-  #
-  #     $ mix setup
-  #
-  # See the documentation for `Mix` for more info on aliases.
+  defp deps(env) when env in [:dev, :test] do
+    [
+      {:credo, "~> 1.5.0", runtime: false},
+      {:phoenix_live_reload, "~> 1.2"}
+    ]
+  end
+
+  defp deps(_), do: []
+
   defp aliases do
     [
       setup: ["deps.get"]

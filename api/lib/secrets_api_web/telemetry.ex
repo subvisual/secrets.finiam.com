@@ -1,4 +1,9 @@
 defmodule SecretsApiWeb.Telemetry do
+  @moduledoc """
+  This module sets up the phoenix live view dashboard
+  telemetry settings.
+  """
+
   use Supervisor
   import Telemetry.Metrics
 
