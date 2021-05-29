@@ -6,16 +6,25 @@ defmodule SecretsApi.Secrets do
 
   alias SecretsApi.Redix
 
+  @store_lua_script """
+    redis.call('set', KEYS[1], KEYS[2])
+    redis.call('expire', KEYS[1], 3600)
+
+    return
+  """
+
   @spec store_secret(any) ::
           {:error, charlist()} | {:ok, binary}
   def store_secret(secret) do
     room_id = generate_room_id()
 
-    with {:ok, _} <- Redix.command(["SET", room_id, secret]),
-         {:ok, _} <- Redix.command(["EXPIRE", room_id, 3600]) do
-      {:ok, room_id}
-    else
-      _ -> {:error, :redis_error}
+    case Redix.command(["EVAL", @store_lua_script, 2, room_id, secret]) do
+      {:ok, _} ->
+        {:ok, room_id}
+
+      error ->
+        IO.inspect(error)
+        {:error, :redis_error}
     end
   end
 
