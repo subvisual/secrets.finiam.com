@@ -23,7 +23,6 @@ defmodule SecretsApi.Secrets do
         {:ok, room_id}
 
       error ->
-        IO.inspect(error)
         {:error, :redis_error}
     end
   end
