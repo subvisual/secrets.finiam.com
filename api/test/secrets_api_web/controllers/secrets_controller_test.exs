@@ -14,6 +14,22 @@ defmodule SecretsApiWeb.SecretsControllerTests do
              } = json_response(conn, 200)
     end
 
+    test "returns 404 after getting the secret one time", %{conn: conn} do
+      secret = "some secret"
+      {:ok, room_id} = Secrets.store_secret(secret)
+      conn = get(conn, Routes.secrets_path(conn, :show, room_id))
+
+      assert %{
+               "secret" => _secret
+             } = json_response(conn, 200)
+
+      conn = get(conn, Routes.secrets_path(conn, :show, room_id))
+
+      assert %{
+               "error" => "not_found"
+             } = json_response(conn, 404)
+    end
+
     test "returns 404 if the room id doesn't exist", %{conn: conn} do
       room_id = "fake room id"
       conn = get(conn, Routes.secrets_path(conn, :show, room_id))
@@ -21,6 +37,35 @@ defmodule SecretsApiWeb.SecretsControllerTests do
       assert %{
                "error" => "not_found"
              } = json_response(conn, 404)
+    end
+  end
+
+  describe "head" do
+    test "returns a ok status if secret exists", %{conn: conn} do
+      secret = "some secret"
+      {:ok, room_id} = Secrets.store_secret(secret)
+      conn = head(conn, Routes.secrets_path(conn, :head, room_id))
+
+      assert response(conn, 200) == ""
+    end
+
+    test "returns an ok status if checking twice", %{conn: conn} do
+      secret = "some secret"
+      {:ok, room_id} = Secrets.store_secret(secret)
+      conn = head(conn, Routes.secrets_path(conn, :head, room_id))
+
+      assert response(conn, 200) == ""
+
+      conn = head(conn, Routes.secrets_path(conn, :head, room_id))
+
+      assert response(conn, 200) == ""
+    end
+
+    test "returns 404 if the room id doesn't exist", %{conn: conn} do
+      room_id = "fake room id"
+      conn = head(conn, Routes.secrets_path(conn, :head, room_id))
+
+      assert response(conn, 404) == ""
     end
   end
 

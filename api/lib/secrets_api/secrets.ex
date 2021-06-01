@@ -6,6 +6,8 @@ defmodule SecretsApi.Secrets do
 
   alias SecretsApi.Redix
 
+  require Logger
+
   @store_lua_script """
     redis.call('set', KEYS[1], KEYS[2])
     redis.call('expire', KEYS[1], 3600)
@@ -22,7 +24,25 @@ defmodule SecretsApi.Secrets do
       {:ok, _} ->
         {:ok, room_id}
 
-      error ->
+      {:error, error} ->
+        Logger.error(error)
+        {:error, :redis_error}
+    end
+  end
+
+  @spec secret_exists(any) ::
+          {:error, :not_found | :redis_error}
+          | {:ok}
+  def secret_exists(room_id) do
+    case Redix.command(["EXISTS", room_id]) do
+      {:ok, 1} ->
+        {:ok}
+
+      {:ok, _} ->
+        {:error, :not_found}
+
+      {:error, error} ->
+        Logger.error(error)
         {:error, :redis_error}
     end
   end
@@ -45,7 +65,8 @@ defmodule SecretsApi.Secrets do
       {:ok, secret} ->
         {:ok, secret}
 
-      _error ->
+      {:error, error} ->
+        Logger.error(error)
         {:error, :redis_error}
     end
   end

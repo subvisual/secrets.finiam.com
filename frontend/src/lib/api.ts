@@ -13,6 +13,12 @@ export async function createSecret(secret: string): Promise<string> {
   return body.room_id;
 }
 
+export async function checkIfRoomExists(room: string): Promise<boolean> {
+  const response = await fetch(`${API_URL}/api/secrets/${room}`, { method: 'HEAD' });
+
+  return response.status === 200;
+}
+
 export async function getRoomSecret(room: string): Promise<string> {
   let response, body;
 

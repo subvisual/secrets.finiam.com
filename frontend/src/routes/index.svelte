@@ -38,7 +38,12 @@
 </script>
 
 <main class="max-w-2xl mx-auto pt-24 pb-6 flex flex-col items-center">
-  <h1 class="font-bold text-xl mb-8">Go ahead, share your secrets :)</h1>
+  <h1 class="font-bold text-xl mb-8">Finiam</h1>
+
+  <p class="max-w-lg text-center mb-10">
+    Finiam Secrets allows you to share information securely and ephemerally. The generated link will
+    only work once and then it will disappear forever.
+  </p>
 
   {#if sharingUrl && !submitting}
     <div class="flex flex-row items-center px-4 space-x-4">
@@ -53,7 +58,7 @@
   {:else}
     <form class="flex flex-col items-center w-full">
       <textarea
-        class="border-2 border-gray-300 rounded-md p-4 w-1/2"
+        class="border-2 border-gray-300 rounded-md p-4 w-4/5 h-64"
         name="secret"
         bind:value={textToEncrypt}
       />
@@ -63,7 +68,7 @@
           <div>Encrypting data...</div>
         {:else}
           <button
-            class="p-2 rounded-md bg-gray-200"
+            class="p-2 rounded-md bg-gray-200 disabled:opacity-40 disabled:cursor-not-allowed"
             on:click={handleClick}
             disabled={!textToEncrypt}
           >

@@ -4,52 +4,50 @@
   export const ssr = false;
 
   export const load: Load = async ({ page }) => {
-    return { props: { room: page.params.room } };
+    return {
+      props: { room: page.params.room, roomExists: await checkIfRoomExists(page.params.room) }
+    };
   };
 </script>
 
 <script lang="ts">
   // @hmr:keep-all
   import { decryptData } from '$lib/crypto';
-  import { getRoomSecret } from '$lib/api';
-  import { onMount } from 'svelte';
+  import { getRoomSecret, checkIfRoomExists } from '$lib/api';
+  import { goto } from '$app/navigation';
 
   export let room: string;
-  let loading = true;
+  export let roomExists: boolean;
+  let loading = false;
   let decryptedSecret: string;
-  let error: string;
 
   async function revealSecret() {
+    loading = true;
     const secret = await getRoomSecret(room);
     const encryptionKey = location.hash.substring(1);
 
     try {
-      return await decryptData(secret, encryptionKey);
+      decryptedSecret = await decryptData(secret, encryptionKey);
+      loading = false;
     } catch (_) {
-      throw 'Hey, this private key is not correct!';
+      goto('/error');
     }
   }
-
-  onMount(() => {
-    revealSecret()
-      .then((res) => (decryptedSecret = res))
-      .catch((res) => (error = res))
-      .finally(() => (loading = false));
-  });
 </script>
 
 <main class="max-w-2xl mx-auto pt-24 pb-6 flex flex-col items-center">
-  {#if loading}
+  {#if !roomExists}
+    <p>This secret was either already revealed or never existed in the first place!</p>
+  {:else if !loading && !decryptedSecret}
+    <p class="mb-10">The following secret can only be revealed once!</p>
+
+    <button on:click={revealSecret}>Reveal the secret</button>
+  {:else if loading}
     Loading...
   {:else if decryptedSecret}
     <h1 class="font-bold text-xl mb-8">Your secret</h1>
     <div class="border-2 border-gray-300 rounded-md p-4 w-1/2 cursor-not-allowed">
       {decryptedSecret}
-    </div>
-  {:else}
-    <div class="text-center">
-      <p class="font-bold text-xl">Error</p>
-      <p class="mt-8">{error}</p>
     </div>
   {/if}
 </main>

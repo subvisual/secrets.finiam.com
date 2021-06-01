@@ -17,6 +17,7 @@ defmodule SecretsApiWeb.Router do
   scope "/api", SecretsApiWeb do
     pipe_through :api
 
+    head "/secrets/:id", SecretsController, :head
     resources "/secrets", SecretsController, only: [:show, :create]
 
     options "/*path", SecretsController, :options
