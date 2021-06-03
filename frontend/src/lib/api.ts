@@ -10,6 +10,8 @@ export async function createSecret(secret: string): Promise<string> {
   });
   const body = await response.json();
 
+  if (response.status !== 200) throw 'Something exploded!';
+
   return body.room_id;
 }
 
