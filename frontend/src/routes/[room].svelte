@@ -44,7 +44,7 @@
 
   function handleCopyClick() {
     informationCopied = true;
-    copyToClipboard(sharingUrl);
+    copyToClipboard(decryptedSecret);
   }
 </script>
 
@@ -54,14 +54,10 @@
       <p class="w-4/5 text-center">
         This secret was either already revealed or never existed in the first place!
       </p>
-      <Button on:click={createNewSecret}>
-        Create a new secret
-      </Button>
+      <Button on:click={createNewSecret}>Create a new secret</Button>
     </div>
   {:else if !loading && !decryptedSecret}
-    <p class="w-4/5 text-center mb-10">
-      The following secret can only be revealed once!
-    </p>
+    <p class="w-4/5 text-center mb-10">The following secret can only be revealed once!</p>
 
     <Button on:click={revealSecret}>Reveal the secret</Button>
   {:else if loading}
@@ -85,9 +81,7 @@
           Copied!
         {/if}
       </Button>
-      <Button on:click={createNewSecret} secondary>
-        Create a new secret
-      </Button>
+      <Button on:click={createNewSecret} secondary>Create a new secret</Button>
     </div>
   {/if}
 </div>

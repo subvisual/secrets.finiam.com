@@ -4,7 +4,7 @@
   export { className as class };
   export let secondary = false;
 
-  $: buttonType = !secondary ? "bg-brand text-white" : "bg-white text-brand border border-brand"
+  $: buttonType = !secondary ? 'bg-brand text-white' : 'bg-white text-brand border border-brand';
 </script>
 
 <button

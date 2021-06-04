@@ -15,8 +15,7 @@
   let submitting: boolean;
   let urlCopied: boolean;
 
-  async function handleClick(event) {
-    console.log('here')
+  async function handleClick(event: { preventDefault: () => void }) {
     try {
       event.preventDefault();
       submitting = true;
@@ -48,7 +47,8 @@
 {#if sharingUrl && !submitting}
   <div class="flex flex-col items-center w-full">
     <p class="max-w-lg w-4/5 text-center mb-10">
-      As soon as someone opens the link, it will be destroyed automatically, ensuring full protection of your information.
+      As soon as someone opens the link, it will be destroyed automatically, ensuring full
+      protection of your information.
     </p>
 
     <div class="border-2 border-gray-300 rounded-md p-4 w-4/5 mb-10">
@@ -66,15 +66,14 @@
         {/if}
       </Button>
 
-      <Button className="bg-gray-200" secondary on:click={handleReset}>
-        Reset and try again
-      </Button>
+      <Button className="bg-gray-200" secondary on:click={handleReset}>Reset and try again</Button>
     </div>
   </div>
 {:else}
   <div class="flex flex-col items-center w-full">
     <p class="max-w-lg w-4/5 text-center mb-10">
-      Finiam Secrets allows you to share information securely and ephemerally. The generated link will only work once and then it will disappear forever.
+      Finiam Secrets allows you to share information securely and ephemerally. The generated link
+      will only work once and then it will disappear forever.
     </p>
     <form class="flex flex-col items-center w-full">
       <textarea
@@ -88,9 +87,7 @@
         {#if submitting}
           <div>Encrypting data...</div>
         {:else}
-          <Button on:click={handleClick} disabled={!textToEncrypt}>
-            Create a secret link
-          </Button>
+          <Button on:click={handleClick} disabled={!textToEncrypt}>Create a secret link</Button>
         {/if}
       </div>
     </form>
