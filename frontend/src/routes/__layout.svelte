@@ -3,7 +3,7 @@
   import '../app.css';
 </script>
 
-<main class="max-w-2xl mx-auto pt-24 pb-6 flex flex-col items-center">
+<main class="max-w-2xl mx-auto pt-16 pb-6 flex flex-col items-center">
   <FiniamLogo class="mb-20" />
 
   <slot />

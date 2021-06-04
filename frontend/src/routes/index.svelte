@@ -4,6 +4,7 @@
   import { createSecret } from '$lib/api';
   import copyToClipboard from '$lib/copyToClipboard';
   import Button from '$lib/components/Button.svelte';
+  import IconCopy from '$lib/components/IconCopy.svelte';
 
   import { encryptData, generatePassphrase } from '$lib/crypto';
 
@@ -12,8 +13,10 @@
   let encryptionKey: string;
   let sharingUrl: string;
   let submitting: boolean;
+  let urlCopied: boolean;
 
   async function handleClick(event) {
+    console.log('here')
     try {
       event.preventDefault();
       submitting = true;
@@ -33,42 +36,63 @@
     encryptionKey = '';
     sharingUrl = '';
     submitting = false;
+    urlCopied = false;
   }
 
   function handleCopyClick() {
+    urlCopied = true;
     copyToClipboard(sharingUrl);
   }
 </script>
 
-<p class="max-w-lg text-center mb-10">
-  Finiam Secrets allows you to share information securely and ephemerally. The generated link will
-  only work once and then it will disappear forever.
-</p>
-
 {#if sharingUrl && !submitting}
-  <div class="flex flex-row items-center px-4 space-x-4">
-    <button class="p-2 rounded-md bg-gray-200 mt-4" type="button" on:click={handleCopyClick}>
-      Copy url to clipboard
-    </button>
+  <div class="flex flex-col items-center w-full">
+    <p class="max-w-lg w-4/5 text-center mb-10">
+      As soon as someone opens the link, it will be destroyed automatically, ensuring full protection of your information.
+    </p>
 
-    <button class="p-2 rounded-md bg-gray-200 mt-4" on:click={handleReset}>
-      Reset and try again
-    </button>
+    <div class="border-2 border-gray-300 rounded-md p-4 w-4/5 mb-10">
+      <p class="w-full truncate">{sharingUrl}</p>
+    </div>
+    <div class="flex flex-row items-center px-4 space-x-4">
+      <Button on:click={handleCopyClick} secondary={urlCopied}>
+        {#if !urlCopied}
+          <div class="flex items-center space-x-2">
+            <IconCopy />
+            <span>Copy link</span>
+          </div>
+        {:else}
+          Copied!
+        {/if}
+      </Button>
+
+      <Button className="bg-gray-200" secondary on:click={handleReset}>
+        Reset and try again
+      </Button>
+    </div>
   </div>
 {:else}
-  <form class="flex flex-col items-center w-full">
-    <textarea
-      class="border-2 border-gray-300 rounded-md p-4 w-4/5 h-64"
-      name="secret"
-      bind:value={textToEncrypt}
-    />
+  <div class="flex flex-col items-center w-full">
+    <p class="max-w-lg w-4/5 text-center mb-10">
+      Finiam Secrets allows you to share information securely and ephemerally. The generated link will only work once and then it will disappear forever.
+    </p>
+    <form class="flex flex-col items-center w-full">
+      <textarea
+        class="border-2 border-gray-300 rounded-md p-4 w-4/5 h-64"
+        name="secret"
+        placeholder="Your information..."
+        bind:value={textToEncrypt}
+      />
 
-    <div class="mt-4">
-      {#if submitting}
-        <div>Encrypting data...</div>
-      {:else}
-        <Button on:click={handleClick} disabled={!textToEncrypt}>Submit</Button>
-      {/if}
-    </div>
-  </form>
+      <div class="mt-10">
+        {#if submitting}
+          <div>Encrypting data...</div>
+        {:else}
+          <Button on:click={handleClick} disabled={!textToEncrypt}>
+            Create a secret link
+          </Button>
+        {/if}
+      </div>
+    </form>
+  </div>
 {/if}
