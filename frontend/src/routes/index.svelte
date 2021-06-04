@@ -4,7 +4,6 @@
   import { createSecret } from '$lib/api';
   import copyToClipboard from '$lib/copyToClipboard';
   import Button from '$lib/components/Button.svelte';
-  import IconCopy from '$lib/components/IconCopy.svelte';
 
   import { encryptData, generatePassphrase } from '$lib/crypto';
 
@@ -55,15 +54,8 @@
       <p class="w-full truncate">{sharingUrl}</p>
     </div>
     <div class="flex flex-row items-center px-4 space-x-4">
-      <Button on:click={handleCopyClick} secondary={urlCopied}>
-        {#if !urlCopied}
-          <div class="flex items-center space-x-2">
-            <IconCopy />
-            <span>Copy link</span>
-          </div>
-        {:else}
-          Copied!
-        {/if}
+      <Button on:click={handleCopyClick} copy secondary={urlCopied}>
+        {!urlCopied ? 'Copy link' : 'Copied!'}
       </Button>
 
       <Button className="bg-gray-200" secondary on:click={handleReset}>Reset and try again</Button>

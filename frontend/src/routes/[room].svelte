@@ -2,7 +2,6 @@
   import type { Load } from '@sveltejs/kit';
   import copyToClipboard from '$lib/copyToClipboard';
   import Button from '$lib/components/Button.svelte';
-  import IconCopy from '$lib/components/IconCopy.svelte';
 
   export const ssr = false;
 
@@ -71,15 +70,8 @@
     </div>
 
     <div class="flex flex-row space-x-4 mt-10">
-      <Button on:click={handleCopyClick}>
-        {#if !informationCopied}
-          <div class="flex items-center space-x-2">
-            <IconCopy />
-            <span>Copy information</span>
-          </div>
-        {:else}
-          Copied!
-        {/if}
+      <Button on:click={handleCopyClick} copy secondary={informationCopied}>
+        {!informationCopied ? 'Copy information' : 'Copied!'}
       </Button>
       <Button on:click={createNewSecret} secondary>Create a new secret</Button>
     </div>
