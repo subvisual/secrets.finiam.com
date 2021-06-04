@@ -1,9 +1,5 @@
 <script context="module" lang="ts">
   import type { Load } from '@sveltejs/kit';
-  import copyToClipboard from '$lib/copyToClipboard';
-  import Button from '$lib/components/Button.svelte';
-
-  export const ssr = false;
 
   export const load: Load = async ({ page }) => {
     return {
@@ -14,13 +10,14 @@
 
 <script lang="ts">
   // @hmr:keep-all
+  import Button from '$lib/components/Button.svelte';
+  import CopyButton from '$lib/components/CopyButton.svelte';
   import { decryptData } from '$lib/crypto';
   import { getRoomSecret, checkIfRoomExists } from '$lib/api';
   import { goto } from '$app/navigation';
 
   export let room: string;
   export let roomExists: boolean;
-  export let informationCopied: boolean;
   let loading = false;
   let decryptedSecret: string;
 
@@ -39,11 +36,6 @@
 
   function createNewSecret() {
     goto('/');
-  }
-
-  function handleCopyClick() {
-    informationCopied = true;
-    copyToClipboard(decryptedSecret);
   }
 </script>
 
@@ -70,9 +62,7 @@
     </div>
 
     <div class="flex flex-row space-x-4 mt-10">
-      <Button on:click={handleCopyClick} copy secondary={informationCopied}>
-        {!informationCopied ? 'Copy information' : 'Copied!'}
-      </Button>
+      <CopyButton value={decryptedSecret}>Copy information</CopyButton>
       <Button on:click={createNewSecret} secondary>Create a new secret</Button>
     </div>
   {/if}

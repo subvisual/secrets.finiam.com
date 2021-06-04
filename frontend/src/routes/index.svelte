@@ -2,8 +2,8 @@
   // @hmr:keep-all
   import { goto } from '$app/navigation';
   import { createSecret } from '$lib/api';
-  import copyToClipboard from '$lib/copyToClipboard';
   import Button from '$lib/components/Button.svelte';
+  import CopyButton from '$lib/components/CopyButton.svelte';
 
   import { encryptData, generatePassphrase } from '$lib/crypto';
 
@@ -12,7 +12,6 @@
   let encryptionKey: string;
   let sharingUrl: string;
   let submitting: boolean;
-  let urlCopied: boolean;
 
   async function handleClick(event: { preventDefault: () => void }) {
     try {
@@ -34,12 +33,6 @@
     encryptionKey = '';
     sharingUrl = '';
     submitting = false;
-    urlCopied = false;
-  }
-
-  function handleCopyClick() {
-    urlCopied = true;
-    copyToClipboard(sharingUrl);
   }
 </script>
 
@@ -54,9 +47,7 @@
       <p class="w-full truncate">{sharingUrl}</p>
     </div>
     <div class="flex flex-row items-center px-4 space-x-4">
-      <Button on:click={handleCopyClick} copy secondary={urlCopied}>
-        {!urlCopied ? 'Copy link' : 'Copied!'}
-      </Button>
+      <CopyButton value={sharingUrl}>Copy link</CopyButton>
 
       <Button className="bg-gray-200" secondary on:click={handleReset}>Reset and try again</Button>
     </div>
