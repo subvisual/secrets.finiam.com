@@ -57,7 +57,7 @@
     <p class="w-4/5 text-center mb-10">
       Your secret was revealed and permanently deleted from the system 🔥
     </p>
-    <div class="border border-gray-300 rounded-md p-4 w-4/5 cursor-not-allowed">
+    <div class="border border-gray-300 rounded-md p-4 w-4/5 cursor-not-allowed break-words">
       {decryptedSecret}
     </div>
 
