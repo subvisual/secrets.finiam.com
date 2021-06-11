@@ -1,16 +1,10 @@
-<script lang="ts">
-  let className: string;
-
-  export { className as class };
-</script>
-
 <svg
   width="100"
   height="28"
   viewBox="0 0 100 28"
   fill="none"
   xmlns="http://www.w3.org/2000/svg"
-  class={className}
+  class={$$props.class}
 >
   <path
     fill-rule="evenodd"

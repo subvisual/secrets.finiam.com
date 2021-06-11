@@ -2,9 +2,6 @@
   import copyToClipboard from '$lib/copyToClipboard';
   import IconCopy from '$lib/components/IconCopy.svelte';
 
-  let className: string;
-
-  export { className as class };
   export let value: string;
   export let copied = false;
 
@@ -17,7 +14,7 @@
 </script>
 
 <button
-  class={`p-3 ${buttonType} rounded text-white disabled:opacity-20 disabled:cursor-not-allowed ${className}`}
+  class={`p-3 ${buttonType} rounded text-white disabled:opacity-20 disabled:cursor-not-allowed ${$$props.class}`}
   on:click={handleCopyClick}
   {...$$restProps}
 >
