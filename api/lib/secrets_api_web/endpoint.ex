@@ -45,7 +45,6 @@ defmodule SecretsApiWeb.Endpoint do
     json_decoder: Phoenix.json_library()
 
   plug Plug.MethodOverride
-  plug Plug.Head
   plug Plug.Session, @session_options
   plug SecretsApiWeb.Router
 end

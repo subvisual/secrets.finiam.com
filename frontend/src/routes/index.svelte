@@ -1,7 +1,9 @@
 <script lang="ts">
   // @hmr:keep-all
+  import { goto } from '$app/navigation';
   import { createSecret } from '$lib/api';
-  import copyToClipboard from '$lib/copyToClipboard';
+  import Button from '$lib/components/Button.svelte';
+  import CopyButton from '$lib/components/CopyButton.svelte';
 
   import { encryptData, generatePassphrase } from '$lib/crypto';
 
@@ -11,17 +13,18 @@
   let sharingUrl: string;
   let submitting: boolean;
 
-  async function handleClick(event) {
-    event.preventDefault();
-    submitting = true;
-
-    encryptionKey = generatePassphrase();
-    encryptedText = await encryptData(textToEncrypt, encryptionKey);
-
-    const room = await createSecret(encryptedText);
-
-    sharingUrl = `${location.protocol}//${location.host}/${room}#${encryptionKey}`;
-    submitting = false;
+  async function handleClick(event: { preventDefault: () => void }) {
+    try {
+      event.preventDefault();
+      submitting = true;
+      encryptionKey = generatePassphrase();
+      encryptedText = await encryptData(textToEncrypt, encryptionKey);
+      const room = await createSecret(encryptedText);
+      sharingUrl = `${location.protocol}//${location.host}/${room}#${encryptionKey}`;
+      submitting = false;
+    } catch (_) {
+      goto('/error');
+    }
   }
 
   async function handleReset() {
@@ -31,46 +34,45 @@
     sharingUrl = '';
     submitting = false;
   }
-
-  function handleCopyClick() {
-    copyToClipboard(sharingUrl);
-  }
 </script>
 
-<main class="max-w-2xl mx-auto pt-24 pb-6 flex flex-col items-center">
-  <h1 class="font-bold text-xl mb-8">Go ahead, share your secrets :)</h1>
+{#if sharingUrl && !submitting}
+  <div class="flex flex-col items-center w-full">
+    <p class="max-w-lg w-4/5 text-center mb-10">
+      As soon as someone opens the link, it will be destroyed automatically, ensuring full
+      protection of your information.
+    </p>
 
-  {#if sharingUrl && !submitting}
-    <div class="flex flex-row items-center px-4 space-x-4">
-      <button class="p-2 rounded-md bg-gray-200 mt-4" type="button" on:click={handleCopyClick}>
-        Copy url to clipboard
-      </button>
-
-      <button class="p-2 rounded-md bg-gray-200 mt-4" on:click={handleReset}>
-        Reset and try again
-      </button>
+    <div class="border-2 border-gray-300 rounded-md p-4 w-4/5 mb-10">
+      <p class="w-full truncate">{sharingUrl}</p>
     </div>
-  {:else}
+    <div class="flex flex-row items-center px-4 space-x-4">
+      <CopyButton value={sharingUrl}>Copy link</CopyButton>
+
+      <Button className="bg-gray-200" secondary on:click={handleReset}>Reset and try again</Button>
+    </div>
+  </div>
+{:else}
+  <div class="flex flex-col items-center w-full">
+    <p class="max-w-lg w-4/5 text-center mb-10">
+      Finiam Secrets allows you to share information securely and ephemerally. The generated link
+      will only work once and then it will disappear forever.
+    </p>
     <form class="flex flex-col items-center w-full">
       <textarea
-        class="border-2 border-gray-300 rounded-md p-4 w-1/2"
+        class="border-2 border-gray-300 rounded-md p-4 w-4/5 h-64"
         name="secret"
+        placeholder="Your information..."
         bind:value={textToEncrypt}
       />
 
-      <div class="mt-4">
+      <div class="mt-10">
         {#if submitting}
           <div>Encrypting data...</div>
         {:else}
-          <button
-            class="p-2 rounded-md bg-gray-200"
-            on:click={handleClick}
-            disabled={!textToEncrypt}
-          >
-            Submit
-          </button>
+          <Button on:click={handleClick} disabled={!textToEncrypt}>Create a secret link</Button>
         {/if}
       </div>
     </form>
-  {/if}
-</main>
+  </div>
+{/if}
