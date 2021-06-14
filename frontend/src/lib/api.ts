@@ -36,3 +36,11 @@ export async function getRoomSecret(room: string): Promise<string> {
 
   return body.secret;
 }
+
+export async function deleteSecret(room: string): Promise<void> {
+  try {
+    await fetch(`${API_URL}/api/secrets/${room}`, { method: 'DELETE' });
+  } catch (error) {
+    throw 'Something exploded!';
+  }
+}

@@ -71,6 +71,21 @@ defmodule SecretsApi.Secrets do
     end
   end
 
+  @spec delete_secret(any) :: {:ok} | {:error, :not_found | :redis_error}
+  def delete_secret(room_id) do
+    case Redix.command(["DEL", room_id]) do
+      {:ok, 0} ->
+        {:error, :not_found}
+
+      {:ok, _} ->
+        {:ok}
+
+      {:error, error} ->
+        Logger.error(error)
+        {:error, :redis_error}
+    end
+  end
+
   defp generate_room_id do
     :crypto.strong_rand_bytes(8)
     |> Base.encode64(case: :lower)
