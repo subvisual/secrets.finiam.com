@@ -10,6 +10,7 @@
 
 <script lang="ts">
   // @hmr:keep-all
+  import SEO from '$lib/components/SEO.svelte';
   import Button from '$lib/components/Button.svelte';
   import CopyButton from '$lib/components/CopyButton.svelte';
   import { decryptData } from '$lib/crypto';
@@ -38,6 +39,12 @@
     goto('/');
   }
 </script>
+
+<SEO
+  title="Finiam Secrets"
+  description="Finiam Secrets allows you to share information securely and ephemerally. The generated link will only work once and then it will disappear forever."
+  keywords="secrets,share,end-to-end,encryption,finiam"
+/>
 
 <div class="w-full flex flex-col items-center">
   {#if !roomExists}
