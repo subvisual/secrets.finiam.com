@@ -22,4 +22,10 @@ defmodule SecretsApiWeb.SecretsController do
       json(conn, %{secret: secret})
     end
   end
+
+  def delete(conn, %{"id" => room_id}) do
+    with {:ok} <- Secrets.delete_secret(room_id) do
+      send_resp(conn, 200, "")
+    end
+  end
 end

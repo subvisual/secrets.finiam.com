@@ -79,4 +79,14 @@ defmodule SecretsApiWeb.SecretsControllerTests do
              } = json_response(conn, 200)
     end
   end
+
+  describe "delete" do
+    test "returns ok if secret is deleted", %{conn: conn} do
+      secret = "some secret"
+      {:ok, room_id} = Secrets.store_secret(secret)
+      conn = delete(conn, Routes.secrets_path(conn, :delete, room_id))
+
+      assert response(conn, 200) == ""
+    end
+  end
 end

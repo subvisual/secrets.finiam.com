@@ -3,27 +3,31 @@ defmodule SecretsApi.SecretsTest do
 
   alias SecretsApi.Secrets
 
-  test "stores some string and assigns it a room id" do
-    secret = "something"
-    {:ok, room_id} = Secrets.store_secret(secret)
+  describe "store_secret/1" do
+    test "stores some string and assigns it a room id" do
+      secret = "something"
+      {:ok, room_id} = Secrets.store_secret(secret)
 
-    assert is_binary(room_id)
+      assert is_binary(room_id)
+    end
   end
 
-  test "retrieves an already stored secret" do
-    secret = "something"
-    {:ok, room_id} = Secrets.store_secret(secret)
-    {:ok, retrieved_secret} = Secrets.retrieve_and_delete_secret(room_id)
+  describe "retrieve_and_delete_secret/1" do
+    test "retrieves an already stored secret" do
+      secret = "something"
+      {:ok, room_id} = Secrets.store_secret(secret)
+      {:ok, retrieved_secret} = Secrets.retrieve_and_delete_secret(room_id)
 
-    assert secret == retrieved_secret
-  end
+      assert secret == retrieved_secret
+    end
 
-  test "deletes a secret after retrieval" do
-    secret = "something"
-    {:ok, room_id} = Secrets.store_secret(secret)
-    {:ok, _} = Secrets.retrieve_and_delete_secret(room_id)
+    test "auto deletes a secret after retrieval" do
+      secret = "something"
+      {:ok, room_id} = Secrets.store_secret(secret)
+      {:ok, _} = Secrets.retrieve_and_delete_secret(room_id)
 
-    assert {:error, :not_found} = Secrets.retrieve_and_delete_secret(room_id)
+      assert {:error, :not_found} = Secrets.retrieve_and_delete_secret(room_id)
+    end
   end
 
   describe "secret_exists/1" do
@@ -38,6 +42,19 @@ defmodule SecretsApi.SecretsTest do
       room_id = "bad room"
 
       assert {:error, :not_found} = Secrets.secret_exists(room_id)
+    end
+  end
+
+  describe "delete_secret/1" do
+    test "deletes a secret" do
+      {:ok, room_id} = Secrets.store_secret("something")
+
+      assert {:ok} = Secrets.delete_secret(room_id)
+      assert {:error, :not_found} = Secrets.retrieve_and_delete_secret(room_id)
+    end
+
+    test "returns not found error" do
+      assert {:error, :not_found} = Secrets.delete_secret("does not exist")
     end
   end
 end

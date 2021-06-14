@@ -1,7 +1,7 @@
 <script lang="ts">
   // @hmr:keep-all
   import { goto } from '$app/navigation';
-  import { createSecret } from '$lib/api';
+  import { createSecret, deleteSecret } from '$lib/api';
   import Button from '$lib/components/Button.svelte';
   import CopyButton from '$lib/components/CopyButton.svelte';
 
@@ -12,6 +12,8 @@
   let encryptionKey: string;
   let sharingUrl: string;
   let submitting: boolean;
+  let deleting: boolean;
+  let roomId: string;
 
   async function handleClick(event: { preventDefault: () => void }) {
     try {
@@ -19,8 +21,8 @@
       submitting = true;
       encryptionKey = generatePassphrase();
       encryptedText = await encryptData(textToEncrypt, encryptionKey);
-      const room = await createSecret(encryptedText);
-      sharingUrl = `${location.protocol}//${location.host}/${room}#${encryptionKey}`;
+      roomId = await createSecret(encryptedText);
+      sharingUrl = `${location.protocol}//${location.host}/${roomId}#${encryptionKey}`;
       submitting = false;
     } catch (_) {
       goto('/error');
@@ -28,6 +30,9 @@
   }
 
   async function handleReset() {
+    deleting = true;
+    await deleteSecret(roomId);
+    deleting = false;
     textToEncrypt = '';
     encryptedText = '';
     encryptionKey = '';
@@ -49,7 +54,9 @@
     <div class="flex flex-row items-center px-4 space-x-4">
       <CopyButton value={sharingUrl}>Copy link</CopyButton>
 
-      <Button className="bg-gray-200" secondary on:click={handleReset}>Reset and try again</Button>
+      <Button class="bg-gray-200" secondary on:click={handleReset} loading={deleting}
+        >Reset and try again</Button
+      >
     </div>
   </div>
 {:else}
@@ -68,7 +75,7 @@
 
       <div class="mt-10">
         {#if submitting}
-          <div>Encrypting data...</div>
+          <Button loading={submitting}>Encrypting data...</Button>
         {:else}
           <Button on:click={handleClick} disabled={!textToEncrypt}>Create a secret link</Button>
         {/if}
