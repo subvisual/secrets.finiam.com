@@ -4,6 +4,7 @@
   import { createSecret, deleteSecret } from '$lib/api';
   import Button from '$lib/components/Button.svelte';
   import CopyButton from '$lib/components/CopyButton.svelte';
+  import SEO from '$lib/components/SEO.svelte';
 
   import { encryptData, generatePassphrase } from '$lib/crypto';
 
@@ -40,6 +41,12 @@
     submitting = false;
   }
 </script>
+
+<SEO
+  title="Finiam Secrets"
+  description="Finiam Secrets allows you to share information securely and ephemerally. The generated link will only work once and then it will disappear forever."
+  keywords="secrets,share,end-to-end,encryption,finiam"
+/>
 
 {#if sharingUrl && !submitting}
   <div class="flex flex-col items-center w-full">
