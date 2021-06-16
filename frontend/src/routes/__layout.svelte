@@ -7,18 +7,22 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 </svelte:head>
 
-<main class="max-w-2xl mx-auto pt-16 pb-6 flex flex-col items-center min-h-screen">
-  <FiniamLogo class="mb-20" />
+<div class="flex flex-col max-w-2xl min-h-screen mx-auto">
+  <main class="w-full pt-16 pb-6 flex flex-col items-center">
+    <FiniamLogo class="mb-20" />
 
-  <slot />
+    <slot />
+  </main>
 
-  <p class="block mt-auto pt-20 mb-20 mx-auto text-center">
-    Open source project. <a
-      class="underline"
-      href="https://github.com/finiam/secrets.finiam.com"
-      target="_blank"
-      rel="noopener"
-      >Check the repository here
-    </a>
-  </p>
-</main>
+  <footer class="mt-auto">
+    <p class="block my-20 mx-auto text-center">
+      Open source project. <a
+        class="underline"
+        href="https://github.com/finiam/secrets.finiam.com"
+        target="_blank"
+        rel="noopener"
+        >Check the repository here
+      </a>
+    </p>
+  </footer>
+</div>
