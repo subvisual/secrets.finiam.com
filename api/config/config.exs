@@ -23,7 +23,9 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-case System.fetch_env!("SECRETS_ADAPTER") do
+secrets_adapter = System.get_env("REDIS_URL") || "REDIS"
+
+case secrets_adapter do
   "REDIS" ->
     config :secrets_api, SecretsApi.Secrets, adapter: SecretsApi.Secrets.Redis
 
