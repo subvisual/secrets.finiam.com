@@ -12,6 +12,8 @@ The webapp then builds the link so you can copy it and share it.
 https://secrets.finiam.com/<roomId>#<encryptionKey>
 ```
 
+You can send your secret recipes at https://secrets.finiam.com/
+
 ## Encryption
 
 All encryption is done on the frontend using the [crypto](https://developer.mozilla.org/en-US/docs/Web/API/Crypto) web API. With that API we generate `AES-GCM` encryption and decryption keys derived from a password based key (`PBKDF2`).
