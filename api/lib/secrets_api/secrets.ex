@@ -8,12 +8,12 @@ defmodule SecretsApi.Secrets do
 
   require Logger
 
-  @spec store_secret(any) ::
-          {:error, charlist()} | {:ok, binary}
-  def store_secret(secret) do
+  @spec store_secret(any, boolean) :: {:error, :redis_error} | {:ok, binary}
+  def store_secret(secret, has_passphrase \\ false) do
     room_id = generate_room_id()
+    payload = Jason.encode!(%{secret: secret, has_passphrase: has_passphrase})
 
-    case Redix.command(["SET", room_id, secret, "EX", "3600", "NX"]) do
+    case Redix.command(["SET", room_id, payload, "EX", "3600", "NX"]) do
       {:ok, _} ->
         {:ok, room_id}
 
@@ -47,16 +47,14 @@ defmodule SecretsApi.Secrets do
     return secret
   """
 
-  @spec retrieve_and_delete_secret(any) ::
-          {:error, :not_found | :redis_error}
-          | {:ok, binary}
+  @spec retrieve_and_delete_secret(any) :: {:error, :not_found | :redis_error} | {:ok, any}
   def retrieve_and_delete_secret(room_id) do
     case Redix.command(["EVAL", @retrieve_lua_script, 1, room_id]) do
       {:ok, nil} ->
         {:error, :not_found}
 
-      {:ok, secret} ->
-        {:ok, secret}
+      {:ok, payload} ->
+        {:ok, Jason.decode!(payload)}
 
       {:error, error} ->
         Logger.error(error)
