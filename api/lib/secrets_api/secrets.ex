@@ -8,12 +8,12 @@ defmodule SecretsApi.Secrets do
 
   require Logger
 
-  @spec store_secret(any) ::
+  @spec store_secret(any, any) ::
           {:error, charlist()} | {:ok, binary}
-  def store_secret(secret) do
+  def store_secret(secret, expiry \\ 3600) do
     room_id = generate_room_id()
 
-    case Redix.command(["SET", room_id, secret, "EX", "3600", "NX"]) do
+    case Redix.command(["SET", room_id, secret, "EX", expiry, "NX"]) do
       {:ok, _} ->
         {:ok, room_id}
 

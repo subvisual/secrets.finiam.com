@@ -5,6 +5,12 @@ defmodule SecretsApiWeb.SecretsController do
 
   action_fallback SecretsApiWeb.ErrorController
 
+  def create(conn, %{"secret" => secret, "expiry" => expiry}) do
+    with {:ok, room_id} <- Secrets.store_secret(secret, expiry) do
+      json(conn, %{room_id: room_id})
+    end
+  end
+
   def create(conn, %{"secret" => secret}) do
     with {:ok, room_id} <- Secrets.store_secret(secret) do
       json(conn, %{room_id: room_id})
