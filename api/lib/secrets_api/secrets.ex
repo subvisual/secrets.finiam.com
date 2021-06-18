@@ -2,7 +2,7 @@ defmodule SecretsApi.Secrets do
   import SecretsApi.Config, only: [config!: 2]
 
   @moduledoc """
-  This module contains behaviour for basic operations to safely
+  This module contains the behaviour for basic operations to safely
   store and retrieve secrets.
   """
 
