@@ -1,4 +1,8 @@
 defmodule SecretsApi.Config do
+  @moduledoc """
+  This module to easily load config defined variables
+  """
+
   @spec config!(atom(), atom()) :: any() | no_return
   def config!(mod, key) do
     Application.get_env(:secrets_api, mod)

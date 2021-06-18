@@ -1,4 +1,9 @@
 defmodule SecretsApi.Secrets.Redis do
+  @moduledoc """
+  This module implements behaviour for basic operations to safely
+  store and retrieve secrets with redis.
+  """
+
   @behaviour SecretsApi.Secrets
 
   alias SecretsApi.Secrets.Redis.Redix
