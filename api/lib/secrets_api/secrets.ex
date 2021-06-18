@@ -8,19 +8,12 @@ defmodule SecretsApi.Secrets do
 
   require Logger
 
-  @store_lua_script """
-    redis.call('set', KEYS[1], KEYS[2])
-    redis.call('expire', KEYS[1], 3600)
-
-    return
-  """
-
   @spec store_secret(any) ::
           {:error, charlist()} | {:ok, binary}
   def store_secret(secret) do
     room_id = generate_room_id()
 
-    case Redix.command(["EVAL", @store_lua_script, 2, room_id, secret]) do
+    case Redix.command(["SET", room_id, secret, "EX", "3600", "NX"]) do
       {:ok, _} ->
         {:ok, room_id}
 
