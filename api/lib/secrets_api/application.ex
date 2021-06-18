@@ -12,7 +12,7 @@ defmodule SecretsApi.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: SecretsApi.PubSub},
       # Start the Redix pool
-      SecretsApi.Redix,
+      SecretsApi.Secrets.Redis.Redix,
       # Start the Endpoint (http/https)
       SecretsApiWeb.Endpoint
       # Start a worker by calling: SecretsApi.Worker.start_link(arg)

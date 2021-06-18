@@ -1,4 +1,4 @@
-defmodule SecretsApi.Redix do
+defmodule SecretsApi.Secrets.Redis.Redix do
   @moduledoc """
   This module sets up the Redix connection pool
   """
