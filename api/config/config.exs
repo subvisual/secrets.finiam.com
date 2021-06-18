@@ -23,10 +23,13 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-# Configures Redis
-redis_url = System.get_env("REDIS_URL") || "redis://localhost:6379"
+case System.fetch_env!("SECRETS_ADAPTER") do
+  "REDIS" ->
+    config :secrets_api, SecretsApi.Secrets, adapter: SecretsApi.Secrets.Redis
 
-config :secrets_api, redis_url: redis_url
+    config :secrets_api,
+      redis_url: System.get_env("REDIS_URL") || "redis://localhost:6379"
+end
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
