@@ -18,7 +18,7 @@ defmodule SecretsApi.SecretsTest do
       {:ok, room_id} = Secrets.store_secret(secret)
       {:ok, retrieved_secret} = Secrets.retrieve_and_delete_secret(room_id)
 
-      assert secret == retrieved_secret
+      assert %{"has_passphrase" => false, "secret" => ^secret} = retrieved_secret
     end
 
     test "auto deletes a secret after retrieval" do

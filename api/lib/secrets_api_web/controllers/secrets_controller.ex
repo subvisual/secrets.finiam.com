@@ -5,6 +5,12 @@ defmodule SecretsApiWeb.SecretsController do
 
   action_fallback SecretsApiWeb.ErrorController
 
+  def create(conn, %{"secret" => secret, "has_passphrase" => has_passphrase}) do
+    with {:ok, room_id} <- Secrets.store_secret(secret, has_passphrase) do
+      json(conn, %{room_id: room_id})
+    end
+  end
+
   def create(conn, %{"secret" => secret}) do
     with {:ok, room_id} <- Secrets.store_secret(secret) do
       json(conn, %{room_id: room_id})
@@ -19,7 +25,7 @@ defmodule SecretsApiWeb.SecretsController do
 
   def show(conn, %{"id" => room_id}) do
     with {:ok, secret} <- Secrets.retrieve_and_delete_secret(room_id) do
-      json(conn, %{secret: secret})
+      json(conn, secret)
     end
   end
 
