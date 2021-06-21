@@ -1,0 +1,31 @@
+previewsEnabled: false
+services:
+- type: pserv
+  previewPlan: starter
+  name: redis
+  env: docker
+  repo: https://github.com/render-examples/redis.git
+  disk:
+    name: redis-data
+    mountPath: /var/lib/redis
+    sizeGB: 1
+- type: web
+  previewPlan: starter
+  name: api
+  env: elixir
+  numInstances: 1
+  buildCommand: deploy/build-api.sh
+  startCommand: api/_build/prod/rel/secrets_api/bin/secrets_api start
+  envVars:
+  - key: SECRET_KEY_BASE
+    generateValue: true
+    sync: false
+  - key: ADMIN_USERNAME
+    value: admin
+  - key: ADMIN_PASSWORD
+    generateValue: true
+  - key: REDIS_HOSTPORT
+    fromService:
+      name: redis
+      type: pserv
+      property: hostport

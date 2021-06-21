@@ -24,7 +24,7 @@ config :logger, :console,
 config :phoenix, :json_library, Jason
 
 # Configures Redis
-redis_url = System.get_env("REDIS_URL") || "redis://localhost:6379"
+redis_url = System.get_env("REDIS_URL") || "redis://#{System.get_env("REDIS_HOSTPORT")}" || "redis://localhost:6379"
 
 config :secrets_api, redis_url: redis_url
 
