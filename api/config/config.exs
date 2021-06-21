@@ -23,7 +23,7 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-secrets_adapter = System.get_env("SECRETS_ADAPTER") || "REDIS"
+secrets_adapter = System.get_env("SECRETS_ADAPTER")
 
 case secrets_adapter do
   "REDIS" ->
@@ -31,6 +31,9 @@ case secrets_adapter do
 
     config :secrets_api,
       redis_url: System.get_env("REDIS_URL") || "redis://localhost:6379"
+
+  _ ->
+    raise "No storage adapter set"
 end
 
 # Import environment specific config. This must remain at the bottom
