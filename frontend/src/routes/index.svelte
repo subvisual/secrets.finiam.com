@@ -23,7 +23,7 @@
       submitting = true;
       encryptionKey = generatePassphrase();
       encryptedText = await encryptData(textToEncrypt, encryptionKey);
-      roomId = await createSecret({ secret: encryptedText, expiry });
+      roomId = await createSecret({ secret: encryptedText, expiry: Number(expiry) });
       sharingUrl = `${location.protocol}//${location.host}/${roomId}#${encryptionKey}`;
       submitting = false;
     } catch (_) {

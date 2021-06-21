@@ -5,7 +5,7 @@ export async function createSecret({
   expiry
 }: {
   secret: string;
-  expiry: string;
+  expiry: number;
 }): Promise<string> {
   const response = await fetch(`${API_URL}/api/secrets`, {
     method: 'POST',

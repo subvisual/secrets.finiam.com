@@ -11,6 +11,16 @@ defmodule SecretsApi.Secrets do
   @spec store_secret(any, any) ::
           {:error, charlist()} | {:ok, binary}
   def store_secret(secret, expiry \\ 3600) do
+    expiry_number = parse_int(expiry)
+
+    if expiry_number > 604_800 do
+      {:error, :greater_than_max_expiry}
+    else
+      store_secret_internal(secret, expiry)
+    end
+  end
+
+  defp store_secret_internal(secret, expiry) do
     room_id = generate_room_id()
 
     case Redix.command(["SET", room_id, secret, "EX", expiry, "NX"]) do
@@ -84,4 +94,7 @@ defmodule SecretsApi.Secrets do
     |> Base.encode64(case: :lower)
     |> Base.url_encode64(case: :lower, padding: true)
   end
+
+  def parse_int(string) when is_bitstring(string), do: String.to_integer(string)
+  def parse_int(value), do: value
 end
