@@ -21,7 +21,7 @@ defmodule SecretsApi.Analytics do
   end
 
   @spec set_secrets_counter(integer) :: integer
-  def set_secrets_counter(value) do
+  def set_secrets_counter(value) when is_integer(value) do
     update_value(@secrets_counter, value)
   end
 
