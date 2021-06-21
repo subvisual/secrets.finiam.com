@@ -1,6 +1,7 @@
 defmodule SecretsApi.SecretsTest do
-  use SecretsApiWeb.ConnCase, async: true
+  use SecretsApi.DataCase
 
+  alias SecretsApi.Analytics
   alias SecretsApi.Secrets
 
   describe "store_secret/1" do
@@ -9,6 +10,15 @@ defmodule SecretsApi.SecretsTest do
       {:ok, room_id} = Secrets.store_secret(secret)
 
       assert is_binary(room_id)
+    end
+
+    test "increments the secrets_counter" do
+      prev_counter = Analytics.get_secrets_counter()
+      secret = "something"
+
+      Secrets.store_secret(secret)
+
+      assert Analytics.get_secrets_counter() == prev_counter + 1
     end
   end
 

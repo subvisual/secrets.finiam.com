@@ -7,16 +7,11 @@ defmodule SecretsApi.Application do
 
   def start(_type, _args) do
     children = [
-      # Start the Telemetry supervisor
+      SecretsApi.Repo,
       SecretsApiWeb.Telemetry,
-      # Start the PubSub system
       {Phoenix.PubSub, name: SecretsApi.PubSub},
-      # Start the Redix pool
       SecretsApi.Redix,
-      # Start the Endpoint (http/https)
       SecretsApiWeb.Endpoint
-      # Start a worker by calling: SecretsApi.Worker.start_link(arg)
-      # {SecretsApi.Worker, arg}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
