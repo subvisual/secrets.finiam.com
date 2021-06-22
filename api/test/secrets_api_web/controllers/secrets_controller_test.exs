@@ -1,4 +1,5 @@
 defmodule SecretsApiWeb.SecretsControllerTests do
+  use SecretsApi.DataCase
   use SecretsApiWeb.ConnCase, async: true
 
   alias SecretsApi.Secrets

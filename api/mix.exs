@@ -29,6 +29,10 @@ defmodule SecretsApi.MixProject do
   defp deps do
     [
       {:cors_plug, "~> 2.0"},
+      {:phoenix_ecto, "~> 4.0"},
+      {:ecto_enum, "~> 1.4"},
+      {:ecto_sql, "~> 3.5"},
+      {:postgrex, ">= 0.0.0"},
       {:phoenix, "~> 1.5.9"},
       {:phoenix_live_dashboard, "~> 0.4"},
       {:telemetry_metrics, "~> 0.4"},
@@ -51,7 +55,14 @@ defmodule SecretsApi.MixProject do
 
   defp aliases do
     [
-      setup: ["deps.get"]
+      setup: ["deps.get"],
+      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
+      "ecto.reset": ["ecto.drop", "ecto.setup"],
+      test: [
+        "ecto.create --quiet",
+        "ecto.migrate",
+        "test"
+      ]
     ]
   end
 end
