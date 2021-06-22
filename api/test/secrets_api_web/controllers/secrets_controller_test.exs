@@ -90,6 +90,23 @@ defmodule SecretsApiWeb.SecretsControllerTests do
                "room_id" => _secret
              } = json_response(conn, 200)
     end
+
+    test "renders sets the passphrase requirement to true", %{conn: conn} do
+      secret = "some secret"
+
+      conn =
+        post(conn, Routes.secrets_path(conn, :create), %{
+          "secret" => secret,
+          "has_passphrase" => true
+        })
+
+      %{
+        "room_id" => room_id
+      } = json_response(conn, 200)
+
+      assert {:ok, %{"secret" => ^secret, "has_passphrase" => true}} =
+               Secrets.retrieve_and_delete_secret(room_id)
+    end
   end
 
   describe "delete" do

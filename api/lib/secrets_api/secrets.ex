@@ -8,22 +8,12 @@ defmodule SecretsApi.Secrets do
 
   require Logger
 
-  @spec store_secret(any, any) ::
-          {:error, charlist()} | {:ok, binary}
-  def store_secret(secret, expiry \\ 3600) do
-    expiry_number = parse_int(expiry)
-
-    if expiry_number > 604_800 do
-      {:error, :greater_than_max_expiry}
-    else
-      store_secret_internal(secret, expiry)
-    end
-  end
-
-  defp store_secret_internal(secret, expiry) do
+  @spec store_secret(any, keyword) :: {:error, :redis_error} | {:ok, binary}
+  def store_secret(secret, options \\ []) do
     room_id = generate_room_id()
+    payload = Jason.encode!(%{secret: secret, has_passphrase: options[:has_passphrase] || false})
 
-    case Redix.command(["SET", room_id, secret, "EX", expiry, "NX"]) do
+    case Redix.command(["SET", room_id, payload, "EX", options[:expiry] || 3600, "NX"]) do
       {:ok, _} ->
         {:ok, room_id}
 
@@ -57,16 +47,14 @@ defmodule SecretsApi.Secrets do
     return secret
   """
 
-  @spec retrieve_and_delete_secret(any) ::
-          {:error, :not_found | :redis_error}
-          | {:ok, binary}
+  @spec retrieve_and_delete_secret(any) :: {:error, :not_found | :redis_error} | {:ok, any}
   def retrieve_and_delete_secret(room_id) do
     case Redix.command(["EVAL", @retrieve_lua_script, 1, room_id]) do
       {:ok, nil} ->
         {:error, :not_found}
 
-      {:ok, secret} ->
-        {:ok, secret}
+      {:ok, payload} ->
+        {:ok, Jason.decode!(payload)}
 
       {:error, error} ->
         Logger.error(error)
