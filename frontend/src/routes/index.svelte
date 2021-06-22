@@ -15,6 +15,7 @@
   let submitting: boolean;
   let deleting: boolean;
   let roomId: string;
+  let expiry: string;
 
   async function handleClick(event: { preventDefault: () => void }) {
     try {
@@ -22,7 +23,7 @@
       submitting = true;
       encryptionKey = generatePassphrase();
       encryptedText = await encryptData(textToEncrypt, encryptionKey);
-      roomId = await createSecret(encryptedText);
+      roomId = await createSecret({ secret: encryptedText, expiry: Number(expiry) });
       sharingUrl = `${location.protocol}//${location.host}/${roomId}#${encryptionKey}`;
       submitting = false;
     } catch (_) {
@@ -79,6 +80,29 @@
         placeholder="Your information..."
         bind:value={textToEncrypt}
       />
+
+      <div class="w-full mx-8 mt-8">
+        <p class="text-lg">Secret lifetime</p>
+
+        <div class="flex">
+          <p>
+            This link is valid for
+            <select
+              name="expiry"
+              class="border-gray-400 border-2 p-2 rounded cursor-pointer"
+              bind:value={expiry}
+            >
+              <option value="900">15 min</option>
+              <option value="1800">30 min</option>
+              <option value="3600">1 hour</option>
+              <option value="21600">6 hours </option>
+              <option value="86400">1 day</option>
+              <option value="604800">7 days</option>
+            </select>
+            or until revealed. After this date, it will be destroyed.
+          </p>
+        </div>
+      </div>
 
       <div class="mt-10">
         {#if submitting}

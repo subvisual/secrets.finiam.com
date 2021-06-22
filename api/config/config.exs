@@ -22,6 +22,7 @@ config :logger, :console,
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
+config :phoenix, :filter_parameters, ["secret"]
 
 # Configures Redis
 redis_url = System.get_env("REDIS_URL") || "redis://localhost:6379"

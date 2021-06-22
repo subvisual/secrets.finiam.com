@@ -1,9 +1,15 @@
 const API_URL = import.meta.env.VITE_API_URL;
 
-export async function createSecret(secret: string): Promise<string> {
+export async function createSecret({
+  secret,
+  expiry
+}: {
+  secret: string;
+  expiry: number;
+}): Promise<string> {
   const response = await fetch(`${API_URL}/api/secrets`, {
     method: 'POST',
-    body: JSON.stringify({ secret }),
+    body: JSON.stringify({ secret, expiry }),
     headers: {
       'content-type': 'application/json'
     }

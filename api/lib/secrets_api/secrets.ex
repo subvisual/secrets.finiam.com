@@ -8,12 +8,12 @@ defmodule SecretsApi.Secrets do
 
   require Logger
 
-  @spec store_secret(any, boolean) :: {:error, :redis_error} | {:ok, binary}
-  def store_secret(secret, has_passphrase \\ false) do
+  @spec store_secret(any, keyword) :: {:error, :redis_error} | {:ok, binary}
+  def store_secret(secret, options \\ []) do
     room_id = generate_room_id()
-    payload = Jason.encode!(%{secret: secret, has_passphrase: has_passphrase})
+    payload = Jason.encode!(%{secret: secret, has_passphrase: options[:has_passphrase] || false})
 
-    case Redix.command(["SET", room_id, payload, "EX", "3600", "NX"]) do
+    case Redix.command(["SET", room_id, payload, "EX", options[:expiry] || 3600, "NX"]) do
       {:ok, _} ->
         {:ok, room_id}
 
@@ -82,4 +82,7 @@ defmodule SecretsApi.Secrets do
     |> Base.encode64(case: :lower)
     |> Base.url_encode64(case: :lower, padding: true)
   end
+
+  def parse_int(string) when is_bitstring(string), do: String.to_integer(string)
+  def parse_int(value), do: value
 end

@@ -79,6 +79,18 @@ defmodule SecretsApiWeb.SecretsControllerTests do
              } = json_response(conn, 200)
     end
 
+    test "accepts an expiry time", %{conn: conn} do
+      secret = "some secret"
+      expiry = 3600
+
+      conn =
+        post(conn, Routes.secrets_path(conn, :create), %{"secret" => secret, "expiry" => expiry})
+
+      assert %{
+               "room_id" => _secret
+             } = json_response(conn, 200)
+    end
+
     test "renders sets the passphrase requirement to true", %{conn: conn} do
       secret = "some secret"
 
