@@ -1,12 +1,12 @@
-defmodule SecretsApi.Analytics do
+defmodule SecretsApi.Stats do
   @moduledoc """
   This module allows for the storing of various
   properties useful for analytics.
   """
   import Ecto.Query, warn: false
 
-  alias SecretsApi.Analytics.KeyValue
   alias SecretsApi.Repo
+  alias SecretsApi.Stats.KeyValue
 
   @secrets_counter "secrets_counter"
 

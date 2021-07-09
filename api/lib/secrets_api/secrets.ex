@@ -4,8 +4,8 @@ defmodule SecretsApi.Secrets do
   store and retrieve secrets.
   """
 
-  alias SecretsApi.Analytics
   alias SecretsApi.Redix
+  alias SecretsApi.Stats
 
   require Logger
 
@@ -16,7 +16,7 @@ defmodule SecretsApi.Secrets do
 
     case Redix.command(["SET", room_id, payload, "EX", options[:expiry] || 3600, "NX"]) do
       {:ok, _} ->
-        Analytics.increment_secrets_counter()
+        Stats.increment_secrets_counter()
         {:ok, room_id}
 
       {:error, error} ->

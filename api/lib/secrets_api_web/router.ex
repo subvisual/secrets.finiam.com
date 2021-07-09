@@ -19,6 +19,7 @@ defmodule SecretsApiWeb.Router do
 
     head "/secrets/:id", SecretsController, :head
     resources "/secrets", SecretsController, only: [:show, :create, :delete]
+    resources "/stats", StatsController, only: [:index]
 
     options "/*path", SecretsController, :options
   end

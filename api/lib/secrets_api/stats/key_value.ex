@@ -1,4 +1,4 @@
-defmodule SecretsApi.Analytics.KeyValue do
+defmodule SecretsApi.Stats.KeyValue do
   @moduledoc """
   This module is an Ecto model that
   just stores key value records.

@@ -1,8 +1,8 @@
 defmodule SecretsApi.SecretsTest do
   use SecretsApi.DataCase
 
-  alias SecretsApi.Analytics
   alias SecretsApi.Secrets
+  alias SecretsApi.Stats
 
   describe "store_secret/1" do
     test "stores some string and assigns it a room id" do
@@ -13,12 +13,12 @@ defmodule SecretsApi.SecretsTest do
     end
 
     test "increments the secrets_counter" do
-      prev_counter = Analytics.get_secrets_counter()
+      prev_counter = Stats.get_secrets_counter()
       secret = "something"
 
       Secrets.store_secret(secret)
 
-      assert Analytics.get_secrets_counter() == prev_counter + 1
+      assert Stats.get_secrets_counter() == prev_counter + 1
     end
   end
 
