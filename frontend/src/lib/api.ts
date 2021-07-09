@@ -50,3 +50,14 @@ export async function deleteSecret(room: string): Promise<void> {
     throw 'Something exploded!';
   }
 }
+
+export async function getStats(): Promise<{ secretsCounter: string }> {
+  try {
+    const response = await fetch(`${API_URL}/api/stats`);
+    const json = await response.json();
+
+    return { secretsCounter: json.secrets_counter };
+  } catch (error) {
+    throw 'Something exploded!';
+  }
+}

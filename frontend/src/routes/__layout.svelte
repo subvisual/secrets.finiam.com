@@ -1,6 +1,21 @@
-<script>
+<script context="module" lang="ts">
+  import type { Load } from '@sveltejs/kit';
+  import { getStats } from '$lib/api';
+
+  export const load: Load = async () => {
+    const stats = await getStats();
+
+    return {
+      props: stats
+    };
+  };
+</script>
+
+<script lang="ts">
   import FiniamLogo from '$lib/components/FiniamLogo.svelte';
   import '../app.css';
+
+  export let secretsCounter: number;
 </script>
 
 <svelte:head>
@@ -15,7 +30,7 @@
   </main>
 
   <footer class="mt-auto">
-    <p class="block my-20 mx-auto text-center">
+    <p class="block mt-20 mx-auto text-center">
       Open source project. <a
         class="underline"
         href="https://github.com/finiam/secrets.finiam.com"
@@ -23,6 +38,10 @@
         rel="noopener"
         >Check the repository here
       </a>
+    </p>
+
+    <p class="block mt-4 mb-20 mx-auto text-center">
+      Created secrets so far: {secretsCounter}
     </p>
   </footer>
 </div>
