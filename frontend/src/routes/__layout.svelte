@@ -40,7 +40,7 @@
       </a>
     </p>
 
-    <p class="block mt-4 mb-20 mx-auto text-center">
+    <p class="block text-sm text-gray-500 mt-8 mb-20 mx-auto text-center">
       Created secrets so far: {secretsCounter}
     </p>
   </footer>
