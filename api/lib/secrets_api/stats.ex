@@ -5,8 +5,8 @@ defmodule SecretsApi.Stats do
   """
   import Ecto.Query, warn: false
 
-  alias SecretsApi.Stats.KeyValue
   alias SecretsApi.Repo
+  alias SecretsApi.Stats.KeyValue
 
   @secrets_counter "secrets_counter"
 

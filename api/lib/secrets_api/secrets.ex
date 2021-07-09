@@ -4,8 +4,8 @@ defmodule SecretsApi.Secrets do
   store and retrieve secrets.
   """
 
-  alias SecretsApi.Stats
   alias SecretsApi.Redix
+  alias SecretsApi.Stats
 
   require Logger
 

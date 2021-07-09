@@ -1,8 +1,8 @@
 defmodule SecretsApi.SecretsTest do
   use SecretsApi.DataCase
 
-  alias SecretsApi.Stats
   alias SecretsApi.Secrets
+  alias SecretsApi.Stats
 
   describe "store_secret/1" do
     test "stores some string and assigns it a room id" do
