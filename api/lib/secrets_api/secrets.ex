@@ -14,7 +14,7 @@ defmodule SecretsApi.Secrets do
     room_id = generate_room_id()
     payload = Jason.encode!(%{secret: secret, has_passphrase: options[:has_passphrase] || false})
 
-    case Redix.command(["SET", room_id, payload, "EX", options[:expiry] || 3600, "NX"]) do
+    case Redix.command(["SET", room_id, payload, "EX", options[:expiry] || 21_600, "NX"]) do
       {:ok, _} ->
         Stats.increment_secrets_counter()
         {:ok, room_id}
