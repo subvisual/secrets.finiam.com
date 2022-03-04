@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 config :secrets_api, SecretsApiWeb.Endpoint,
   url: [host: "example.com", port: 80],

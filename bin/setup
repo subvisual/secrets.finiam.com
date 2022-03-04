@@ -53,6 +53,7 @@ MIX_ENV=$env mix local.hex --force
 MIX_ENV=$env mix local.rebar --force
 MIX_ENV=$env mix deps.get
 MIX_ENV=$env mix archive.install hex phx_new 1.5.9 --force
+MIX_ENV=$env mix ecto.setup
 )
 
 (cd frontend;
