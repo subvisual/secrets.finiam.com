@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 config :secrets_api,
   ecto_repos: [SecretsApi.Repo]
@@ -21,4 +21,4 @@ redis_url = System.get_env("REDIS_URL") || "redis://localhost:6379"
 
 config :secrets_api, redis_url: redis_url
 
-import_config "#{Mix.env()}.exs"
+import_config "#{config_env()}.exs"

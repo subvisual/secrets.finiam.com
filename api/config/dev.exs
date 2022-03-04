@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 config :secrets_api, SecretsApi.Repo,
   adapter: Ecto.Adapters.Postgres,

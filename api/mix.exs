@@ -9,7 +9,7 @@ defmodule SecretsApi.MixProject do
       version: "0.1.0",
       elixir: "~> 1.7",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:phoenix] ++ Mix.compilers(),
+      compilers: Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps()
@@ -28,12 +28,12 @@ defmodule SecretsApi.MixProject do
 
   defp deps do
     [
-      {:cors_plug, "~> 2.0"},
+      {:cors_plug, "~> 3.0"},
       {:phoenix_ecto, "~> 4.0"},
       {:ecto_enum, "~> 1.4"},
       {:ecto_sql, "~> 3.5"},
       {:postgrex, ">= 0.0.0"},
-      {:phoenix, "~> 1.5.9"},
+      {:phoenix, "~> 1.6.0"},
       {:phoenix_live_dashboard, "~> 0.4"},
       {:telemetry_metrics, "~> 0.4"},
       {:telemetry_poller, "~> 0.4"},
@@ -46,7 +46,7 @@ defmodule SecretsApi.MixProject do
 
   defp deps(env) when env in [:dev, :test] do
     [
-      {:credo, "~> 1.5.0", runtime: false},
+      {:credo, "~> 1.6.0", runtime: false},
       {:phoenix_live_reload, "~> 1.2"}
     ]
   end
@@ -56,7 +56,7 @@ defmodule SecretsApi.MixProject do
   defp aliases do
     [
       setup: ["deps.get"],
-      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
+      "ecto.setup": ["ecto.create", "ecto.migrate"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: [
         "ecto.create --quiet",
