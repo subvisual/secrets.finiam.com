@@ -31,10 +31,6 @@ else
   asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git 2>/dev/null
   set -e
 
-  printf "Importing nodejs release team keyring... "
-  bin/helpers/import-nodejs-keys
-  echo "Done!"
-
   asdf install
 fi
 
