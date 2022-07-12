@@ -1,6 +1,7 @@
 <script lang="ts">
   import copyToClipboard from '$lib/copyToClipboard';
   import IconCopy from './IconCopy.svelte';
+  import IconCopySuccess from './IconCopySuccess.svelte';
   import Button from './Button.svelte';
 
   export let value: string;
@@ -18,5 +19,8 @@
     <slot />
   </Button>
 {:else}
-  <Button {...$$restProps} on:click={handleCopyClick}>Copied!</Button>
+  <Button {...$$restProps} on:click={handleCopyClick}>
+    <IconCopySuccess slot="leftIcon" />
+    Copied!
+  </Button>
 {/if}

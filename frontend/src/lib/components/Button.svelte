@@ -16,18 +16,18 @@
 
 <style>
   button {
-    @apply flex items-center p-3 rounded bg-brand text-white;
+    @apply bg-green text-smoked-white flex items-center whitespace-nowrap rounded-full py-4 px-7 tracking-tight;
   }
 
   button.secondary {
-    @apply bg-white text-brand border border-brand;
+    @apply bg-pistachio text-dark-grey;
   }
 
   button:disabled {
-    @apply opacity-20 cursor-not-allowed;
+    @apply cursor-not-allowed opacity-60;
   }
 
   button.loading {
-    @apply opacity-20 cursor-wait;
+    @apply cursor-wait opacity-60;
   }
 </style>
