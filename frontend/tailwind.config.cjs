@@ -4,7 +4,15 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        brand: '#4D00E5'
+        'smoked-white': '#F8F1EC',
+        green: '#00524E',
+        pink: '#FCD5DB',
+        violet: '#C4B2F6',
+        'dark-grey': '#272727',
+        pistachio: '#DEDB7B'
+      },
+      fontFamily: {
+        body: ['Studio Feixen Sans', 'sans-serif']
       }
     }
   },
