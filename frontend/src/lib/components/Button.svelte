@@ -16,7 +16,7 @@
 
 <style>
   button {
-    @apply bg-green text-smoked-white flex items-center whitespace-nowrap rounded-full py-4 px-7 tracking-tight;
+    @apply flex items-center whitespace-nowrap rounded-full bg-green py-4 px-7 tracking-tight text-smoked-white;
   }
 
   button.secondary {

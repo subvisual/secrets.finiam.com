@@ -75,7 +75,7 @@
     </p>
     <form class="relative flex w-full flex-col items-center justify-center gap-2">
       <textarea
-        class="focus:border-dark-grey h-52 w-4/5 rounded-xl border border-transparent p-4 font-sans tracking-tight outline-none md:h-64 md:w-7/12"
+        class="h-52 w-4/5 rounded-xl border border-transparent p-4 font-sans tracking-tight outline-none focus:border-dark-grey md:h-64 md:w-7/12"
         name="secret"
         placeholder="Your information..."
         bind:value={textToEncrypt}
@@ -90,7 +90,7 @@
         </div>
         <select
           name="expiry"
-          class="outline-dark-grey bg-smoked-white w-1/2 cursor-pointer rounded-full py-2 px-3 text-sm tracking-tight md:w-full"
+          class="w-1/2 cursor-pointer rounded-full bg-smoked-white py-2 px-3 text-sm tracking-tight outline-dark-grey md:w-full"
           bind:value={expiry}
         >
           <!-- Disable for now, while we use a non-persistent redis

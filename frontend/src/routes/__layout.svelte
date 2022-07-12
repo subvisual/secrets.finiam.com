@@ -28,7 +28,7 @@
 </svelte:head>
 
 <div
-  class="bg-smoked-white font-body outline-dark-grey text-dark-grey h-full w-full overflow-hidden tracking-tighter antialiased"
+  class="h-full w-full overflow-hidden bg-smoked-white font-body tracking-tighter text-dark-grey antialiased outline-dark-grey"
 >
   <div class="relative float-left hidden h-full w-1/5 md:block ">
     <FiniamI class="absolute -left-10 -top-12" />
@@ -42,7 +42,7 @@
   >
     <main class="mb-16 flex w-full flex-col items-center md:mb-3">
       <a href="/" class="outline-dark-grey">
-        <SecretsLogo class="fill-green mb-6 w-36 md:mb-6 md:w-48" />
+        <SecretsLogo class="mb-6 w-36 fill-green md:mb-6 md:w-48" />
       </a>
       <slot />
     </main>
@@ -76,7 +76,7 @@
         </p>
         <p class="text-center text-xs decoration-1">
           <a
-            class="outline-dark-grey hover:text-green underline underline-offset-1 "
+            class="underline underline-offset-1 outline-dark-grey hover:text-green "
             href="https://github.com/finiam/secrets.finiam.com"
             target="_blank"
             rel="noopener"
@@ -84,7 +84,7 @@
           </a>
           powered by
           <a
-            class="outline-dark-grey hover:text-green font-medium"
+            class="font-medium outline-dark-grey hover:text-green"
             href="https://finiam.com/"
             target="_blank"
             rel="noreferrer"
