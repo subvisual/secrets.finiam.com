@@ -69,13 +69,13 @@
   </div>
 {:else}
   <div class="flex w-full flex-col items-center gap-6">
-    <p class="text-md w-11/12 text-center md:text-lg lg:text-xl">
+    <p class="text-md w-11/12 text-center md:text-lg">
       Share information securely and ephemerally. <br /> The generated link will only work once and then
       it will disappear forever.
     </p>
-    <form class="relative flex w-full flex-col items-center justify-center">
+    <form class="relative flex w-full flex-col items-center justify-center gap-2">
       <textarea
-        class="focus:border-dark-grey	mb-5 h-52 w-4/5 rounded-xl border border-transparent p-4 font-sans tracking-tight outline-none md:h-64 md:w-7/12"
+        class="focus:border-dark-grey h-52 w-4/5 rounded-xl border border-transparent p-4 font-sans tracking-tight outline-none md:h-64 md:w-7/12"
         name="secret"
         placeholder="Your information..."
         bind:value={textToEncrypt}
