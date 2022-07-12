@@ -56,7 +56,6 @@
         </button>
 
         <p
-          id="info"
           class="{toggleOpen
             ? 'block'
             : 'hidden'}  mx-auto my-3 w-4/5 text-justify text-xs sm:text-xs"
