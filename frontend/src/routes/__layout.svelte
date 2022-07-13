@@ -12,15 +12,11 @@
 
 <script lang="ts">
   import SecretsLogo from '$lib/components/SecretsLogo.svelte';
-  import IconChevron from '$lib/components/IconChevron.svelte';
   import FiniamI from '$lib/components/FiniamI.svelte';
   import FiniamM from '$lib/components/FiniamM.svelte';
   import '../app.css';
 
   export let secretsCounter: number;
-
-  let toggleOpen = false;
-  const toggleInfo = () => (toggleOpen = !toggleOpen);
 </script>
 
 <svelte:head>
@@ -28,13 +24,13 @@
 </svelte:head>
 
 <div
-  class="h-full w-full overflow-hidden bg-smoked-white font-body tracking-tighter text-dark-grey antialiased outline-dark-grey"
+  class="h-full w-full overflow-hidden bg-smoked-white font-body tracking-tight text-dark-grey antialiased outline-dark-grey"
 >
   <div class="relative float-left hidden h-full w-1/5 md:block ">
-    <FiniamI class="absolute -left-10 -top-12" />
+    <FiniamI class="absolute -top-20 -left-12 lg:-left-10 lg:-top-20" />
   </div>
   <div class="relative float-right hidden h-full w-1/5 md:block">
-    <FiniamM class="absolute -right-8" />
+    <FiniamM class="absolute -right-16 -top-8 lg:-right-10 lg:-top-6" />
   </div>
 
   <div
@@ -48,50 +44,32 @@
     </main>
 
     <footer
-      class="mx-auto grid w-full grid-flow-row grid-cols-none gap-6 self-end justify-self-end px-5 tracking-tight md:grid-cols-2 md:grid-rows-none"
+      class="mx-auto flex w-7/12 flex-col flex-wrap items-center justify-between gap-6 justify-self-end text-sm tracking-tight md:flex-row"
     >
-      <div class="flex flex-col {toggleOpen ? 'self-start' : 'self-end'}">
-        <button on:click={toggleInfo} class="mx-auto flex items-center gap-1 text-sm"
-          >How it works <IconChevron class="{toggleOpen && 'rotate-180'} transition-all " />
-        </button>
+      <p class="mx-auto text-center">
+        <a
+          class="underline decoration-1 underline-offset-1 outline-dark-grey hover:text-green "
+          href="https://github.com/finiam/secrets.finiam.com"
+          target="_blank"
+          rel="noopener"
+          >Open source project
+        </a>
+        powered by
+        <a
+          class="font-medium outline-dark-grey hover:text-green"
+          href="https://finiam.com/"
+          target="_blank"
+          rel="noreferrer"
+          >Finiam
+        </a>
+      </p>
 
-        <p
-          class="{toggleOpen
-            ? 'block'
-            : 'hidden'}  mx-auto my-3 w-4/5 text-justify text-xs sm:text-xs"
-        >
-          Finiam Secrets transmits E2E messages safely by encrypting the user info locally and then
-          generating a URL with a private key embbeded on it, through the hash in the URL, which is
-          never sent to servers by browsers or any HTTP client. When you generate a secret, the
-          webapp posts the encrypted information to our API, which in turn stores that encrypted
-          information. Each secret can only be opened once - secrets get destroyed after they have
-          been opened or after they expire.
-        </p>
-      </div>
-
-      <div class="flex flex-col gap-3 sm:relative">
-        <p class="flex items-center justify-center gap-1 text-center text-xs md:flex-row md:gap-2">
-          Secrets created so far:
+      <p class="mx-auto flex items-center justify-center gap-1 text-center md:flex-row md:gap-2">
+        Secrets created so far:
+        <span class="inline-flex h-12 w-12 items-center justify-center rounded-full bg-pink">
           {secretsCounter}
-        </p>
-        <p class="text-center text-xs decoration-1">
-          <a
-            class="underline underline-offset-1 outline-dark-grey hover:text-green "
-            href="https://github.com/finiam/secrets.finiam.com"
-            target="_blank"
-            rel="noopener"
-            >Open source project
-          </a>
-          powered by
-          <a
-            class="font-medium outline-dark-grey hover:text-green"
-            href="https://finiam.com/"
-            target="_blank"
-            rel="noreferrer"
-            >Finiam
-          </a>
-        </p>
-      </div>
+        </span>
+      </p>
     </footer>
   </div>
 </div>
