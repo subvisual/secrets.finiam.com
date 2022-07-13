@@ -79,7 +79,7 @@
     </p>
     <form class="relative flex w-full flex-col items-center justify-center gap-2">
       <textarea
-        class="h-52 w-4/5 rounded-xl border border-transparent p-4 font-sans tracking-tight outline-none focus:border-dark-grey md:h-64 md:w-7/12"
+        class="h-52 w-4/5 rounded-xl border-2 border-transparent p-4 font-sans tracking-tight outline-none focus:border-dark-grey md:h-64 md:w-7/12"
         name="secret"
         placeholder="Your information..."
         bind:value={textToEncrypt}
@@ -98,9 +98,9 @@
           bind:value={expiry}
         >
           <!-- Disable for now, while we use a non-persistent redis
-              <option value="86400">1 day</option>
-              <option value="604800">7 days</option>
-            -->
+            <option value="86400">1 day</option>
+            <option value="604800">7 days</option>
+          -->
           <option value="21600">6 hours </option>
           <option value="3600">1 hour</option>
           <option value="1800">30 min</option>
@@ -120,7 +120,7 @@
     <div class="flex w-7/12 grow flex-col justify-end">
       <button
         on:click={toggleInfo}
-        class="flex items-center gap-1 self-center text-sm outline-dark-grey md:self-start"
+        class="text-md flex items-center gap-1 self-center outline-dark-grey hover:text-green md:self-start"
         >How it works <IconChevron class={toggleOpen && 'rotate-180'} />
       </button>
       <p

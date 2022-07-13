@@ -48,22 +48,22 @@
 
 <div class="flex w-full flex-col items-center justify-between gap-8">
   {#if !roomExists}
-    <p class="w-4/5 text-center">
+    <p class="w-4/5 text-center md:w-7/12">
       This secret was either already revealed or never existed in the first place!
     </p>
     <Button on:click={createNewSecret}>Create a new secret</Button>
   {:else if !loading && !decryptedSecret}
-    <p class="w-4/5 text-center">The following secret can only be revealed once!</p>
+    <p class="w-4/5 text-center md:w-7/12">The following secret can only be revealed once!</p>
     <Button on:click={revealSecret}>Reveal the secret</Button>
   {:else if loading}
     Loading...
   {:else if decryptedSecret}
-    <p class="w-4/5 text-center">
+    <p class="w-4/5 text-center md:w-7/12">
       Your secret was revealed and permanently deleted from the system 🔥
     </p>
 
     <div
-      class="w-4/5 cursor-not-allowed whitespace-pre-wrap break-words rounded-xl bg-white p-4 font-sans tracking-tight"
+      class="w-4/5 cursor-not-allowed whitespace-pre-wrap break-words rounded-xl bg-white p-4 font-sans tracking-tight md:w-7/12"
     >
       {decryptedSecret}
     </div>
