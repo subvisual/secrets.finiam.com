@@ -4,6 +4,7 @@
   import { createSecret, deleteSecret } from '$lib/api';
   import Button from '$lib/components/Button.svelte';
   import CopyButton from '$lib/components/CopyButton.svelte';
+  import IconChevron from '$lib/components/IconChevron.svelte';
   import SEO from '$lib/components/SEO.svelte';
 
   import { encryptData, generatePassphrase } from '$lib/crypto';
@@ -16,6 +17,7 @@
   let deleting: boolean;
   let roomId: string;
   let expiry: string;
+  let toggleOpen = false;
 
   async function handleClick(event: { preventDefault: () => void }) {
     try {
@@ -41,6 +43,8 @@
     sharingUrl = '';
     submitting = false;
   }
+
+  const toggleInfo = () => (toggleOpen = !toggleOpen);
 </script>
 
 <SEO
@@ -68,7 +72,7 @@
     </div>
   </div>
 {:else}
-  <div class="flex w-full flex-col items-center gap-6">
+  <div class="flex w-full grow flex-col items-center gap-6">
     <p class="text-md w-11/12 text-center md:text-lg">
       Share information securely and ephemerally. <br /> The generated link will only work once and then
       it will disappear forever.
@@ -112,5 +116,24 @@
         {/if}
       </div>
     </form>
+
+    <div class="flex w-7/12 grow flex-col justify-end">
+      <button
+        on:click={toggleInfo}
+        class="flex items-center gap-1 self-center text-sm outline-dark-grey md:self-start"
+        >How it works <IconChevron class={toggleOpen && 'rotate-180'} />
+      </button>
+      <p
+        class="{toggleOpen
+          ? 'block'
+          : 'hidden'} sm:text-md mx-auto my-2 w-full text-justify text-sm"
+      >
+        Finiam Secrets transmits E2E messages safely by encrypting the user info locally and then
+        generating a URL with a private key embbeded on it. When you generate a secret, the webapp
+        posts the encrypted information to our API, which in turn stores that encrypted information.
+        Each secret can only be opened once - secrets get destroyed after they have been opened or
+        after they expire.
+      </p>
+    </div>
   </div>
 {/if}

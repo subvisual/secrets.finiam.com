@@ -34,9 +34,9 @@
   </div>
 
   <div
-    class="mx-auto flex min-h-screen w-full flex-col justify-between py-6 sm:w-5/6 md:gap-6 md:pt-8"
+    class="mx-auto flex min-h-screen w-full flex-col justify-between gap-6 py-6 sm:w-5/6 md:gap-0 md:pt-8"
   >
-    <main class="mb-16 flex w-full flex-col items-center md:mb-3">
+    <main class="flex w-full grow flex-col items-center md:mb-3">
       <a href="/" class="outline-dark-grey">
         <SecretsLogo class="mb-6 w-36 fill-green md:mb-6 md:w-48" />
       </a>
@@ -44,11 +44,11 @@
     </main>
 
     <footer
-      class="mx-auto flex w-7/12 flex-col flex-wrap items-center justify-between gap-6 justify-self-end text-sm tracking-tight md:flex-row"
+      class="mx-auto flex w-7/12 flex-col items-center justify-between gap-6 justify-self-end text-sm tracking-tight md:flex-row"
     >
-      <p class="mx-auto text-center">
+      <p class="whitespace-nowrap text-center">
         <a
-          class="underline decoration-1 underline-offset-1 outline-dark-grey hover:text-green "
+          class="underline decoration-1 underline-offset-1 outline-dark-grey hover:text-green"
           href="https://github.com/finiam/secrets.finiam.com"
           target="_blank"
           rel="noopener"
@@ -64,9 +64,11 @@
         </a>
       </p>
 
-      <p class="mx-auto flex items-center justify-center gap-1 text-center md:flex-row md:gap-2">
+      <p
+        class="flex items-center justify-center gap-1 whitespace-nowrap text-center md:flex-row md:gap-2"
+      >
         Secrets created so far:
-        <span class="inline-flex h-12 w-12 items-center justify-center rounded-full bg-pink">
+        <span class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-pink">
           {secretsCounter}
         </span>
       </p>
