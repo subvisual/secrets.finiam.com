@@ -92,20 +92,23 @@
           <p class="text-md font-medium">Secret lifetime</p>
           <p class="text-sm">After this time, the secret will vanish.</p>
         </div>
-        <select
-          name="expiry"
-          class="w-1/2 cursor-pointer rounded-full bg-smoked-white py-2 px-3 text-sm tracking-tight outline-dark-grey md:w-full"
-          bind:value={expiry}
-        >
-          <!-- Disable for now, while we use a non-persistent redis
+        <div class="relative w-full">
+          <select
+            name="expiry"
+            class="w-1/2 cursor-pointer appearance-none rounded-full bg-smoked-white py-2 px-3 text-sm tracking-tight outline-dark-grey md:w-full"
+            bind:value={expiry}
+          >
+            <!-- Disable for now, while we use a non-persistent redis
             <option value="86400">1 day</option>
             <option value="604800">7 days</option>
           -->
-          <option value="21600">6 hours </option>
-          <option value="3600">1 hour</option>
-          <option value="1800">30 min</option>
-          <option value="900">15 min</option>
-        </select>
+            <option value="21600">6 hours </option>
+            <option value="3600">1 hour</option>
+            <option value="1800">30 min</option>
+            <option value="900">15 min</option>
+          </select>
+          <IconChevron class="pointer-events-none absolute right-2 top-2.5" />
+        </div>
       </div>
 
       <div class="mt-6">
