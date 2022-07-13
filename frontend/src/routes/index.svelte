@@ -124,7 +124,7 @@
       <button
         on:click={toggleInfo}
         class="text-md flex items-center gap-1 self-center outline-dark-grey hover:text-green md:self-start"
-        >How it works <IconChevron class={toggleOpen && 'rotate-180'} />
+        >How it works <IconChevron class={`${toggleOpen && 'rotate-180'} pointer-events-none`} />
       </button>
       <p
         class="{toggleOpen

@@ -27,10 +27,10 @@
   class="h-full w-full overflow-hidden bg-smoked-white font-body tracking-tight text-dark-grey antialiased outline-dark-grey"
 >
   <div class="relative float-left hidden h-full w-1/5 md:block ">
-    <FiniamI class="absolute -top-20 -left-12 lg:-left-0 lg:-top-20" />
+    <FiniamI class="pointer-events-none absolute -top-20 -left-12 lg:-left-0 lg:-top-20" />
   </div>
   <div class="relative float-right hidden h-full w-1/5 md:block">
-    <FiniamM class="absolute -right-16 -top-8 lg:-right-10 lg:-top-6" />
+    <FiniamM class="pointer-events-none absolute -right-16 -top-8 lg:-right-10 lg:-top-6" />
   </div>
 
   <div

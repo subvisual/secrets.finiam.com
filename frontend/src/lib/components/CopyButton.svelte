@@ -15,12 +15,12 @@
 
 {#if !copied}
   <Button {...$$restProps} on:click={handleCopyClick}>
-    <IconCopy slot="leftIcon" />
+    <IconCopy class="pointer-events-none" slot="leftIcon" />
     <slot />
   </Button>
 {:else}
   <Button {...$$restProps} on:click={handleCopyClick}>
-    <IconCopySuccess slot="leftIcon" />
+    <IconCopySuccess class="pointer-events-none" slot="leftIcon" />
     Copied!
   </Button>
 {/if}
