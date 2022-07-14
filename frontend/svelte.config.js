@@ -30,7 +30,6 @@ const config = {
   ],
 
   kit: {
-    target: '#svelte',
     adapter: adapter()
   }
 };

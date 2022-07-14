@@ -1,9 +1,9 @@
 <script context="module" lang="ts">
   import type { Load } from '@sveltejs/kit';
 
-  export const load: Load = async ({ page }) => {
+  export const load: Load = async ({ params }) => {
     return {
-      props: { room: page.params.room, roomExists: await checkIfRoomExists(page.params.room) }
+      props: { room: params.room, roomExists: await checkIfRoomExists(params.room) }
     };
   };
 </script>
