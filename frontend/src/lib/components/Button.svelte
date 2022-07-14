@@ -16,18 +16,18 @@
 
 <style>
   button {
-    @apply flex items-center p-3 rounded bg-brand text-white;
+    @apply flex items-center rounded bg-brand p-3 text-white;
   }
 
   button.secondary {
-    @apply bg-white text-brand border border-brand;
+    @apply border border-brand bg-white text-brand;
   }
 
   button:disabled {
-    @apply opacity-20 cursor-not-allowed;
+    @apply cursor-not-allowed opacity-20;
   }
 
   button.loading {
-    @apply opacity-20 cursor-wait;
+    @apply cursor-wait opacity-20;
   }
 </style>
