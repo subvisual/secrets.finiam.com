@@ -3,8 +3,8 @@
   "license": "MPL 2.0",
   "scripts": {
     "dev": "vite dev",
-    "build": "svelte-kit build",
-    "preview": "svelte-kit preview",
+    "build": "vite build",
+    "preview": "vite preview",
     "lint": "prettier --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
     "format": "prettier --write --plugin-search-dir=. ."
   },
