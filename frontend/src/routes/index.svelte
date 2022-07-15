@@ -50,16 +50,16 @@
 />
 
 {#if sharingUrl && !submitting}
-  <div class="flex flex-col items-center w-full">
-    <p class="max-w-lg w-4/5 text-center mb-10">
+  <div class="flex w-full flex-col items-center">
+    <p class="mb-10 w-4/5 max-w-lg text-center">
       As soon as someone opens the link, it will be destroyed automatically, ensuring full
       protection of your information.
     </p>
 
-    <div class="border-2 border-gray-300 rounded-md p-4 w-4/5 mb-10">
+    <div class="mb-10 w-4/5 rounded-md border-2 border-gray-300 p-4">
       <p class="w-full truncate">{sharingUrl}</p>
     </div>
-    <div class="flex flex-row items-center px-4 space-x-4">
+    <div class="flex flex-row items-center space-x-4 px-4">
       <CopyButton value={sharingUrl}>Copy link</CopyButton>
 
       <Button class="bg-gray-200" secondary on:click={handleReset} loading={deleting}
@@ -68,20 +68,20 @@
     </div>
   </div>
 {:else}
-  <div class="flex flex-col items-center w-full">
-    <p class="max-w-lg w-4/5 text-center mb-10">
+  <div class="flex w-full flex-col items-center">
+    <p class="mb-10 w-4/5 max-w-lg text-center">
       Finiam Secrets allows you to share information securely and ephemerally. The generated link
       will only work once and then it will disappear forever.
     </p>
-    <form class="flex flex-col items-center w-full">
+    <form class="flex w-full flex-col items-center">
       <textarea
-        class="border-2 border-gray-300 rounded-md p-4 w-4/5 h-64"
+        class="h-64 w-4/5 rounded-md border-2 border-gray-300 p-4"
         name="secret"
         placeholder="Your information..."
         bind:value={textToEncrypt}
       />
 
-      <div class="w-full mx-8 mt-8">
+      <div class="mx-8 mt-8 w-full">
         <p class="text-lg">Secret lifetime</p>
 
         <div class="flex">
@@ -89,7 +89,7 @@
             This link is valid for
             <select
               name="expiry"
-              class="border-gray-400 border-2 p-2 rounded cursor-pointer"
+              class="cursor-pointer rounded border-2 border-gray-400 p-2"
               bind:value={expiry}
             >
               <!-- Disable for now, while we use a non-persistent redis
