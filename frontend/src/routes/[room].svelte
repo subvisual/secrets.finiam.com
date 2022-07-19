@@ -46,31 +46,28 @@
   keywords="secrets,share,end-to-end,encryption,finiam"
 />
 
-<div class="w-full flex flex-col items-center">
+<div class="flex w-full flex-col items-center justify-between gap-8">
   {#if !roomExists}
-    <div class="w-full flex flex-col items-center space-y-10">
-      <p class="w-4/5 text-center">
-        This secret was either already revealed or never existed in the first place!
-      </p>
-      <Button on:click={createNewSecret}>Create a new secret</Button>
-    </div>
+    <p class="w-4/5 text-center md:w-7/12">
+      This secret was either already revealed or never existed in the first place!
+    </p>
+    <Button on:click={createNewSecret}>Create a new secret</Button>
   {:else if !loading && !decryptedSecret}
-    <p class="w-4/5 text-center mb-10">The following secret can only be revealed once!</p>
-
+    <p class="w-4/5 text-center md:w-7/12">The following secret can only be revealed once!</p>
     <Button on:click={revealSecret}>Reveal the secret</Button>
   {:else if loading}
     Loading...
   {:else if decryptedSecret}
-    <p class="w-4/5 text-center mb-10">
+    <p class="w-4/5 text-center md:w-7/12">
       Your secret was revealed and permanently deleted from the system 🔥
     </p>
+
     <div
-      class="border border-gray-300 rounded-md p-4 w-4/5 cursor-not-allowed break-words whitespace-pre-wrap"
+      class="w-4/5 cursor-not-allowed whitespace-pre-wrap break-words rounded-xl bg-white p-4 font-sans tracking-tight md:w-7/12"
     >
       {decryptedSecret}
     </div>
-
-    <div class="flex flex-row space-x-4 mt-10">
+    <div class="flex flex-wrap items-center justify-center gap-3 px-4 md:gap-5">
       <CopyButton value={decryptedSecret}>Copy information</CopyButton>
       <Button on:click={createNewSecret} secondary>Create a new secret</Button>
     </div>
