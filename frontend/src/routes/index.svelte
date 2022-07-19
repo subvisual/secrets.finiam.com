@@ -92,10 +92,10 @@
           <p class="text-md font-medium">Secret lifetime</p>
           <p class="text-sm">After this time, the secret will vanish.</p>
         </div>
-        <div class="relative w-full">
+        <div class="relative w-1/2 md:w-full">
           <select
             name="expiry"
-            class="w-1/2 cursor-pointer appearance-none rounded-full bg-smoked-white py-2 px-3 text-sm tracking-tight outline-dark-grey md:w-full"
+            class="w-full cursor-pointer appearance-none rounded-full bg-smoked-white py-2 px-3 text-sm tracking-tight outline-dark-grey"
             bind:value={expiry}
           >
             <!-- Disable for now, while we use a non-persistent redis
