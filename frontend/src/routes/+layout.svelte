@@ -14,7 +14,7 @@
 </svelte:head>
 
 <div
-  class="bg-smoked-white font-body text-dark-grey outline-dark-grey h-full w-full overflow-hidden tracking-tight antialiased"
+  class="h-full w-full overflow-hidden bg-smoked-white font-body tracking-tight text-dark-grey antialiased outline-dark-grey"
 >
   <div class="relative float-left hidden h-full w-1/5 md:block ">
     <FiniamI class="pointer-events-none absolute -top-20 -left-12 lg:-left-0 lg:-top-20" />
@@ -28,7 +28,7 @@
   >
     <main class="flex w-full grow flex-col items-center md:mb-3">
       <a href="/" class="outline-dark-grey">
-        <SecretsLogo class="fill-green mb-6 w-36 md:mb-6 md:w-48" />
+        <SecretsLogo class="mb-6 w-36 fill-green md:mb-6 md:w-48" />
       </a>
       <slot />
     </main>
@@ -38,7 +38,7 @@
     >
       <p class="whitespace-nowrap text-center">
         <a
-          class="outline-dark-grey hover:text-green underline decoration-1 underline-offset-1"
+          class="underline decoration-1 underline-offset-1 outline-dark-grey hover:text-green"
           href="https://github.com/finiam/secrets.finiam.com"
           target="_blank"
           rel="noopener"
@@ -46,7 +46,7 @@
         </a>
         powered by
         <a
-          class="outline-dark-grey hover:text-green font-medium"
+          class="font-medium outline-dark-grey hover:text-green"
           href="https://finiam.com/"
           target="_blank"
           rel="noreferrer"
@@ -58,7 +58,7 @@
         class="flex items-center justify-center gap-1 whitespace-nowrap text-center md:flex-row md:gap-2"
       >
         Secrets created so far:
-        <span class="bg-pink inline-flex h-11 w-11 items-center justify-center rounded-full">
+        <span class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-pink">
           {secretsCounter}
         </span>
       </p>
