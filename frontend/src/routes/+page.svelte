@@ -99,9 +99,9 @@
             bind:value={expiry}
           >
             <!-- Disable for now, while we use a non-persistent redis
-            <option value="86400">1 day</option>
-            <option value="604800">7 days</option>
-          -->
+              <option value="86400">1 day</option>
+              <option value="604800">7 days</option>
+            -->
             <option value="21600">6 hours </option>
             <option value="3600">1 hour</option>
             <option value="1800">30 min</option>

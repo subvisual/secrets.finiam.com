@@ -1,24 +1,14 @@
-<script context="module" lang="ts">
-  import type { Load } from '@sveltejs/kit';
-
-  export const load: Load = async ({ page }) => {
-    return {
-      props: { room: page.params.room, roomExists: await checkIfRoomExists(page.params.room) }
-    };
-  };
-</script>
-
 <script lang="ts">
-  // @hmr:keep-all
+  import type { PageData } from './$types';
   import SEO from '$lib/components/SEO.svelte';
   import Button from '$lib/components/Button.svelte';
   import CopyButton from '$lib/components/CopyButton.svelte';
   import { decryptData } from '$lib/crypto';
-  import { getRoomSecret, checkIfRoomExists } from '$lib/api';
+  import { getRoomSecret } from '$lib/api';
   import { goto } from '$app/navigation';
 
-  export let room: string;
-  export let roomExists: boolean;
+  export let data: PageData;
+  let { room, roomExists } = data;
   let loading = false;
   let decryptedSecret: string;
 
