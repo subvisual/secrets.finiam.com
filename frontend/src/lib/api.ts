@@ -1,12 +1,17 @@
 const API_URL = import.meta.env.VITE_API_URL;
 
-export async function createSecret({
-  secret,
-  expiry
-}: {
-  secret: string;
-  expiry: number;
-}): Promise<string> {
+export type fetchType = (info: RequestInfo, init?: RequestInit) => Promise<Response>;
+
+export async function createSecret(
+  {
+    secret,
+    expiry
+  }: {
+    secret: string;
+    expiry: number;
+  },
+  fetch = globalThis.fetch
+): Promise<string> {
   const response = await fetch(`${API_URL}/api/secrets`, {
     method: 'POST',
     body: JSON.stringify({ secret, expiry }),
@@ -21,13 +26,13 @@ export async function createSecret({
   return body.room_id;
 }
 
-export async function checkIfRoomExists(room: string): Promise<boolean> {
+export async function checkIfRoomExists(room: string, fetch = globalThis.fetch): Promise<boolean> {
   const response = await fetch(`${API_URL}/api/secrets/${room}`, { method: 'HEAD' });
 
   return response.status === 200;
 }
 
-export async function getRoomSecret(room: string): Promise<string> {
+export async function getRoomSecret(room: string, fetch = globalThis.fetch): Promise<string> {
   let response, body;
 
   try {
@@ -43,7 +48,7 @@ export async function getRoomSecret(room: string): Promise<string> {
   return body.secret;
 }
 
-export async function deleteSecret(room: string): Promise<void> {
+export async function deleteSecret(room: string, fetch = globalThis.fetch): Promise<void> {
   try {
     await fetch(`${API_URL}/api/secrets/${room}`, { method: 'DELETE' });
   } catch (error) {
@@ -51,7 +56,7 @@ export async function deleteSecret(room: string): Promise<void> {
   }
 }
 
-export async function getStats(): Promise<{ secretsCounter: string }> {
+export async function getStats(fetch = globalThis.fetch): Promise<{ secretsCounter: string }> {
   try {
     const response = await fetch(`${API_URL}/api/stats`);
     const json = await response.json();

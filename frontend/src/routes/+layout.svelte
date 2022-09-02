@@ -1,22 +1,12 @@
-<script context="module" lang="ts">
-  import type { Load } from '@sveltejs/kit';
-  import { getStats } from '$lib/api';
-  export const load: Load = async () => {
-    const stats = await getStats();
-
-    return {
-      props: stats
-    };
-  };
-</script>
-
 <script lang="ts">
+  import type { LayoutData } from './$types';
   import SecretsLogo from '$lib/components/SecretsLogo.svelte';
   import FiniamI from '$lib/components/FiniamI.svelte';
   import FiniamM from '$lib/components/FiniamM.svelte';
   import '../app.css';
 
-  export let secretsCounter: number;
+  export let data: LayoutData;
+  let { secretsCounter } = data;
 </script>
 
 <svelte:head>
