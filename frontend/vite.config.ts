@@ -7,12 +7,8 @@ export default defineConfig(({ mode }) => {
       return 'http://localhost:4000';
     }
 
-    const prNumber = process.env['REVIEW_ID'];
-
-    if (prNumber) return `https://finiam-secrets-pr-${prNumber}.herokuapp.com`;
-
-    return `https://finiam-secrets.herokuapp.com`;
-  }
+      return `https://secrets-subvisual-com.fly.dev`;
+}
 
   const apiUrl = buildApiUrl();
   console.log('RUNNING WITH THE FOLLOWING API_URL', apiUrl);
